@@ -8,7 +8,7 @@ import fzmovies_api.utils as utils
 
 
 def search_handler(contents: str) -> models.SearchResults:
-    """Template for movies search results
+    """Make model from search results (html)
 
     Args:
         contents (str): Html fomatted data
@@ -52,3 +52,39 @@ def search_handler(contents: str) -> models.SearchResults:
     return models.SearchResults(
         movies=search_result_items, next_page=next_page, last_page=last_page
     )
+
+
+def movie_handler(contents: str) -> list[models.MovieMetadata]:
+    """Make model from movie metadata (html)"""
+    movie_file_items: list[models.MovieMetadata] = []
+    soup = utils.souper(contents)
+    trailer = soup.find(
+        "iframe",
+        {
+            "allow": "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        },
+    ).get("src")
+    for movie_file in soup.find_all("ul", {"class": "moviesfiles"}):
+        urls = movie_file.find_all("a")
+        title_url = urls[0]
+        title = title_url.text.strip()
+        url = title_url.get("href")
+        dcounter = re.sub(
+            r"\(|\)|\{|\}", "", movie_file.find("dcounter").text.strip()
+        ).split(" ")
+        size = " ".join(dcounter[:2])
+        hits = dcounter[-3]
+        mediainfo = urls[1].get("href")
+        ss = urls[2].get("href")
+        movie_file_items.append(
+            models.MovieMetadata(
+                title=title,
+                url=utils.get_absolute_url(url),
+                size=size,
+                hits=hits,
+                mediainfo=utils.get_absolute_url(mediainfo),
+                ss=utils.get_absolute_url(ss),
+                trailer=trailer,
+            )
+        )
+    return movie_file_items
