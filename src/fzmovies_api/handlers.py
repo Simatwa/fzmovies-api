@@ -1,5 +1,6 @@
 """
-Bridges models and raw search
+Extracts key data from raw html contents 
+and use them to generate models
 """
 
 import re
@@ -54,9 +55,10 @@ def search_handler(contents: str) -> models.SearchResults:
     )
 
 
-def movie_handler(contents: str) -> list[models.MovieMetadata]:
+def movie_handler(contents: str) -> models.MovieFiles:
     """Make model from movie metadata (html)"""
-    movie_file_items: list[models.MovieMetadata] = []
+    movie_files: list[dict[str, str]] = []
+    recommended_movies: list[dict[str, str]] = []
     soup = utils.souper(contents)
     trailer = soup.find(
         "iframe",
@@ -64,6 +66,19 @@ def movie_handler(contents: str) -> list[models.MovieMetadata]:
             "allow": "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         },
     ).get("src")
+
+    for movie in soup.find("div", {"class": "owl-carousel owl-theme"}).find_all("a"):
+        title = movie.get("alt")
+        url = movie.get("href")
+        cover_photo = movie.find("img").get("src")
+        recommended_movies.append(
+            dict(
+                title=title,
+                url=utils.get_absolute_url(url),
+                cover_photo=utils.get_absolute_url(cover_photo),
+            )
+        )
+
     for movie_file in soup.find_all("ul", {"class": "moviesfiles"}):
         urls = movie_file.find_all("a")
         title_url = urls[0]
@@ -76,15 +91,16 @@ def movie_handler(contents: str) -> list[models.MovieMetadata]:
         hits = dcounter[-3]
         mediainfo = urls[1].get("href")
         ss = urls[2].get("href")
-        movie_file_items.append(
-            models.MovieMetadata(
+        movie_files.append(
+            dict(
                 title=title,
                 url=utils.get_absolute_url(url),
                 size=size,
                 hits=hits,
                 mediainfo=utils.get_absolute_url(mediainfo),
                 ss=utils.get_absolute_url(ss),
-                trailer=trailer,
             )
         )
-    return movie_file_items
+    return models.MovieFiles(
+        files=movie_files, trailer=trailer, recommended=recommended_movies
+    )

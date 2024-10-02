@@ -17,11 +17,22 @@ class SearchResults(BaseModel):
     last_page: t.Union[HttpUrl, None] = None
 
 
-class MovieMetadata(BaseModel):
+class FileMetadata(BaseModel):
     title: str
     url: HttpUrl
     size: str
     hits: int
     mediainfo: HttpUrl
     ss: HttpUrl
+
+
+class RecommendedMovies(BaseModel):
+    title: str
+    url: HttpUrl
+    cover_photo: HttpUrl
+
+
+class MovieFiles(BaseModel):
+    files: list[FileMetadata]
     trailer: HttpUrl
+    recommended: list[RecommendedMovies]
