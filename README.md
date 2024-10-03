@@ -62,7 +62,7 @@ Options:
 
 ```
 
-> ![NOTE]
+> [!NOTE]
 > Shorthand for `python -m fzmovies_api` is `fzmovies`
 
 
