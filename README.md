@@ -3,7 +3,7 @@
 <p align="center">
 <a href="#"><img alt="Python version" src="https://img.shields.io/pypi/pyversions/fzmovies-api"/></a>
 <a href="https://github.com/Simatwa/fzmovies-api/actions/workflows/python-test.yml"><img src="https://github.com/Simatwa/fzmovies-api/actions/workflows/python-test.yml/badge.svg" alt="Python Test"/></a>
-<a href="LICENSE"><img alt="License" src="https://img.shields.io/static/v1?logo=GPL&color=Blue&message=GNUv3&label=License"/></a>
+<a href="LICENSE"><img alt="License" src="https://img.shields.io/static/v1?logo=GPL&color=Blue&message=GPLv3&label=License"/></a>
 <a href="https://pypi.org/project/fzmovies-api"><img alt="PyPi" src="https://img.shields.io/pypi/v/fzmovies-api"></a>
 <a href="https://github.com/Simatwa/fzmovies-api/releases"><img src="https://img.shields.io/github/v/release/Simatwa/fzmovies-api?label=Release&logo=github" alt="Latest release"></img></a>
 <a href="https://github.com/Simatwa/fzmovies-api/releases"><img src="https://img.shields.io/github/release-date/Simatwa/fzmovies-api?label=Release date&logo=github" alt="release date"></img></a>

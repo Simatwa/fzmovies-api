@@ -22,7 +22,7 @@ EXTRA_REQUIRE = {
 setup(
     name="fzmovies-api",
     version="0.0.1",
-    license="GNUv3",
+    license="GPLv3",
     author="Smartwa",
     maintainer="Smartwa",
     author_email="simatwacaleb@proton.me",
