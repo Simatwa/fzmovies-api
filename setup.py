@@ -3,7 +3,7 @@ from setuptools import setup
 from setuptools import find_packages
 
 INSTALL_REQUIRE = [
-    "requests[socks]==2.31.0",
+    "requests[socks]>=2.32.3",
     "bs4==0.0.1",
     "pydantic==2.9.2",
     "colorama==0.4.6",
