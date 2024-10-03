@@ -39,9 +39,9 @@ Alternatively, you can download binaries for your system from [here](https://git
    $ python -m fzmovies_api download <QUERY>
    # e.g python -m fzmovies_api download "Thor - Love and Thunder"
    ```
-   
-   > [!TIP]
-   > Shorthand for `python -m fzmovies_api` is `fzmovies`
+
+> [!TIP]
+> Shorthand for `python -m fzmovies_api` is `fzmovies`
 
    `$ python -m fzmovies_api download --help`
 
