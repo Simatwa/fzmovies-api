@@ -27,6 +27,8 @@ Auto(query="Jason Statham", searchby="Starcast").run()
 $ pip install fzmovies-api[all]
 ```
 
+Alternatively, you can download binaries for your system from [here](https://github.com/Simatwa/fzmovies-api/releases/latest).
+
 ## Usage
 
 ### CLI
