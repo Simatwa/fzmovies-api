@@ -20,3 +20,51 @@
 from fzmovies_api import Auto
 Auto(query="Jason Statham", searchby="Starcast").run()
 ```
+
+## Installation
+
+```
+$ pip install fzmovies-api[all]
+```
+
+## Usage
+
+### CLI
+
+- Basic case yet very handy
+
+   ```sh
+   $ python -m fzmovies_api download <QUERY>
+   # e.g python -m fzmovies_api download "Thor - Love and Thunder"
+   ```
+
+   > ![NOTE]
+   > Shorhand for `python -m fzmovies_api` is `fzmovies`
+
+   `$ python -m fzmovies_api download --help`
+
+```
+Usage: python -m fzmovies_api download [OPTIONS] QUERY
+
+  Perform search and download first movie in the search results
+
+Options:
+  -s, --searchby [Name|Director|Starcast]
+                                  Query search-by filter - Name
+  -c, --category [All|Bollywood|Hollywood|DHollywood]
+                                  Query movie category - All
+  -q, --quality [480p|720p]       Movie file download quality - 720p
+  -o, --output TEXT               Filename for saving the movie contents to
+  -d, --directory TEXT            Directory for saving the movie contents -
+                                  pwd
+  -z, --chunk-size INTEGER        Chunk_size for downloading files in KB - 512
+  -r, --resume                    Resume downloading incomplete files - False
+  -q, --quiet                     Not to stdout anything - False
+  -y, --yes                       Okay to all prompts - False
+  --help                          Show this message and exit.
+
+```
+
+## Disclaimer
+
+This project is not affiliated with or endorsed by fzmovies.net or its owners. The API may change without notice, and this project does not guarantee compatibility with all future updates. The developers of this project are not responsible for any damages or losses resulting from the use of this API. This project is provided AS IS, without warranty of any kind, express or implied.
