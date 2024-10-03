@@ -4,13 +4,6 @@ from setuptools import setup
 
 from setuptools import find_packages
 
-DOCS_PATH = Path(__file__).parents[0] / "docs/README.md"
-PATH = Path("README.md")
-if not PATH.exists():
-    with Path.open(DOCS_PATH, encoding="utf-8") as f1:
-        with Path.open(PATH, "w+", encoding="utf-8") as f2:
-            f2.write(f1.read())
-
 INSTALL_REQUIRE = [
     "requests[socks]==2.31.0",
     "bs4==0.0.1",
@@ -59,7 +52,7 @@ setup(
         "movies",
         "fzmovies",
     ],
-    long_description=Path.open("README.md", encoding="utf-8").read(),
+    long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     classifiers=[
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
