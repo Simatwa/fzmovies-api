@@ -161,3 +161,11 @@ def download_links_handler(contents: str) -> models.DownloadMovie:
     return models.DownloadMovie(
         filename=filename, links=download_link_items, size=size, info=info
     )
+
+
+def final_download_link_handler(contents: str) -> str:
+    """Extracts the last url pointing to the movie file"""
+
+    soup = utils.souper(contents)
+
+    return soup.find("div", {"class": "mainbox3"}).find("a").get("href")

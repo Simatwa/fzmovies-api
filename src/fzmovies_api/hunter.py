@@ -173,3 +173,19 @@ class Metadata:
             "/download.php?downloadkey=" in download_url
         ), f"Invalid to-download-links url - '{download_url}'"
         return cls._get_resource(download_url).text
+
+    @classmethod
+    def download_link(cls, last_download_url: str) -> str:
+        """Requests page containing final download link
+
+        Args:
+            last_download_url (str): Link to the last page
+
+        Returns:
+            str: Url pointing to the movie file ready to be downloaded.
+        """
+        # /dlink.php?id
+        assert (
+            "/dlink.php?id=" in last_download_url
+        ), f"Invalid last-download url - '{last_download_url}'"
+        return cls._get_resource(last_download_url).text

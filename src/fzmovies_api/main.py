@@ -130,9 +130,16 @@ class Download:
         """
         assert isinstance(download_link, models.DownloadLink), (
             "movie_file must be an instance of "
-            f"'{models.FileMetadata}' not '{type(download_link)}'"
+            f"'{models.DownloadLink}' not '{type(download_link)}'"
         )
         self.download_link = download_link
+
+    @property
+    def last_url(self) -> str:
+        """Last url pointing to movie file"""
+        return handler.final_download_link_handler(
+            hunter.Metadata.download_link(self.download_link.url)
+        )
 
     def save(
         self,
@@ -153,15 +160,16 @@ class Download:
             resume (bool, optional):  Resume the incomplete download. Defaults to False.
 
         Raises:
-            FileExistsError:  Incase of resume=True but the download was complete
+            FileExistsError:  Incase of `resume=True` but the download was complete
             Exception: _description_
 
         Returns:
-            str: Path where the contents have been saved to.
+            str: Path where the movie contents have been saved to.
         """
         current_downloaded_size = 0
         current_downloaded_size_in_mb = 0
         save_to = path.join(dir, filename)
+        movie_file_url = self.last_url
 
         def pop_range_in_session_headers():
             if hunter.session.headers.get("Range"):
@@ -178,9 +186,10 @@ class Download:
                 current_downloaded_size / 1000000, 2
             )  # convert to mb
 
-        resp = hunter.session.get(self.download_link.url, stream=True)
-
         default_content_length = 0
+
+        resp = hunter.session.get(movie_file_url, stream=True)
+
         size_in_bytes = int(resp.headers.get("content-length", default_content_length))
         if not size_in_bytes:
             if resume:
@@ -238,11 +247,19 @@ class Auto(Search):
             link_index (t.Literal[0,1], optional): Index of movie file link to proceed with
                 0 - low quality  & small size, 1 - high quality & large size. Defaults to 0.
             The rest are arguments for initializing `Search`.
+
+        Example:
+        ```python
+          from fzmovies_api import Auto
+          start = Auto(query="Jason Statham", searchby="Starcast")
+          start.run(filename="Fast and furious shows and hobbs.mp4")
+          # or simply
+          start.run()
+        ```
         """
 
         super().__init__(*args, **kwargs)
-        self.movies = self.results
-        self.target = self.movies[0]
+        self.target = self.results.movies[0]
         self.link_index = link_index
 
     def run(self, *args, **kwargs):
@@ -250,5 +267,9 @@ class Auto(Search):
         Args:
             Rest are arguments for `Download.save`
         """
-        download_link = Navigate(self.target).results.files[0]
+        movie_file = Navigate(self.target).results.files[0]
+        download_movie = DownloadLinks(movie_file).results
+        download_link = download_movie.links[0]
+        if not kwargs.get("filename"):
+            kwargs["filename"] = download_movie.filename
         download = Download(download_link).save(*args, **kwargs)
