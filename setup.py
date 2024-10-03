@@ -21,7 +21,7 @@ EXTRA_REQUIRE = {
 
 setup(
     name="fzmovies-api",
-    version="0.0.1",
+    version="0.0.2",
     license="GPLv3",
     author="Smartwa",
     maintainer="Smartwa",
@@ -36,7 +36,7 @@ setup(
         "Source Code": "https://github.com/Simatwa/fzmovies-api",
         "Issue Tracker": "https://github.com/Simatwa/fzmovies-api/issues",
         "Download": "https://github.com/Simatwa/fzmovies-api/releases",
-        "Documentation": "https://github.com/Simatwa/fzmovies-api/blob/main/docs",
+        "Documentation": "https://github.com/Simatwa/fzmovies-api/",
     },
     entry_points={
         "console_scripts": [
