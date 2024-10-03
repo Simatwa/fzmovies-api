@@ -1,0 +1,762 @@
+<html>
+ <head>
+  <meta content="#6A5ACD" name="theme-color"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-W9G522DEZ7" type="0efb4a0dce5652516536f6c0-text/javascript">
+  </script>
+  <script type="0efb4a0dce5652516536f6c0-text/javascript">
+   window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W9G522DEZ7');
+  </script>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0KVWTVKY5Z" type="0efb4a0dce5652516536f6c0-text/javascript">
+  </script>
+  <script type="0efb4a0dce5652516536f6c0-text/javascript">
+   window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0KVWTVKY5Z');
+  </script>
+ </head>
+ <body>
+  <div style="position:fixed;bottom:-4px;right:-5px;z-index:3000">
+   <button data-cf-modified-0efb4a0dce5652516536f6c0-="" onclick='if (!window.__cfRLUnblockHandlers) return false; window.location.href="back.php";' style="background-color:#31B0D5;color: white;padding: 5px 12px;border-radius: 4px;border-color: #46b8da;">
+    &lt;&lt;Back
+   </button>
+  </div>
+  <div id="rainbow-progress-bar">
+  </div>
+  <script type="0efb4a0dce5652516536f6c0-text/javascript">
+   window.onload = function(){document.getElementById('rainbow-progress-bar').style.display = 'none';}
+  </script>
+  <style>
+   @keyframes rainbow { 
+  0% { background-position: 0% 100%; }
+  50% { background-position: 100% 200%; }
+  100% {background-position: 0% 100%; }
+}
+
+#rainbow-progress-bar {
+  position: absolute;
+  left:0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+  background-size: 900% 900%;
+
+  animation: rainbow 9s ease infinite;
+}
+  </style>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <link href="css/style.css?33" rel="stylesheet" type="text/css"/>
+  <div class="adblock_top">
+  </div>
+  <center>
+   <div class="logo2">
+    <div>
+     <a href="/index.php">
+      <img src="/logo/imageedit_1_4567867331.png" width="350px"/>
+     </a>
+     <hr width="50%"/>
+    </div>
+    <script async="" defer="" src="https://accounts.google.com/gsi/client" type="0efb4a0dce5652516536f6c0-text/javascript">
+    </script>
+    <center>
+     <table style="border:none;text-align:center;">
+      <tr>
+       <td>
+        <div class="dropdown" style="display:inline;">
+         <button class="dropbtn" data-cf-modified-0efb4a0dce5652516536f6c0-="" onclick='if (!window.__cfRLUnblockHandlers) return false; window.location.href="back.php";'>
+          &lt;&lt;Back
+         </button>
+        </div>
+       </td>
+       <td>
+        <div class="dropdown" style="display:inline;">
+         <button class="dropbtn" data-cf-modified-0efb4a0dce5652516536f6c0-="" onclick='if (!window.__cfRLUnblockHandlers) return false; window.location.href="sessionhistory.php";'>
+          Recently Browsed
+         </button>
+        </div>
+       </td>
+       <td>
+        <div data-auto_select="true" data-client_id="94440402827-3sflhu31itgep4c1g42miqbp0i1689se.apps.googleusercontent.com" data-context="signin" data-itp_support="true" data-login_uri="common/googletokensignin.php" data-ux_mode="popup" id="g_id_onload">
+        </div>
+        <div class="g_id_signin" data-type="standard">
+        </div>
+       </td>
+      </tr>
+     </table>
+    </center>
+    <style>
+     .dropbtn {background-color: #4285F4;color: white;padding: 4px;padding-top:11px; padding-bottom:11px; font-size: 12px;border: none;cursor: pointer; border-radius: 8px;}
+    .dropbtn:hover, .dropbtn:focus {background-color: #2980B9;}
+    .dropdown {position: relative;display: inline-block;}
+    .dropdown-content {display: none;position: absolute;background-color: #f1f1f1;min-width: 160px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);z-index: 1;}
+    .dropdown-content a {color: black;padding: 12px 16px;text-decoration: none;display: block;}
+    .dropdown-content a:hover {background-color: #ddd}
+    .show {display:block;}
+    </style>
+   </div>
+  </center>
+  <br/>
+  <div class="searchbox">
+   <center>
+    <form action="csearch.php" id="searchbox" method="post">
+     <fieldset>
+      <legend>
+       <b>
+        <u>
+         Search for:
+        </u>
+       </b>
+      </legend>
+      <input id="searchname" name="searchname" placeholder="" type="text" value=""/>
+      <input name="Search" type="submit" value="Search"/>
+      <br/>
+      <small>
+       <b>
+        <u>
+         <i>
+          By:
+         </i>
+        </u>
+       </b>
+       <input checked="" id="searchby" name="searchby" type="radio" value="Name"/>
+       Movie Name
+       <input id="searchby" name="searchby" type="radio" value="Director"/>
+       Director
+       <input id="searchby" name="searchby" type="radio" value="Starcast"/>
+       Starcast
+      </small>
+      <br/>
+      <hr width="50%"/>
+      <small>
+       <b>
+        <u>
+         <i>
+          In:
+         </i>
+        </u>
+       </b>
+       <input checked="" id="category" name="category" type="radio" value="All"/>
+       All
+       <input id="category" name="category" type="radio" value="Bollywood"/>
+       B'Wood
+       <input id="category" name="category" type="radio" value="Hollywood"/>
+       H'Wood
+       <input id="category" name="category" type="radio" value="DHollywood"/>
+       Dubbed
+      </small>
+      <br/>
+      <br/>
+      <span style="text-align:left">
+       <small>
+        <a href="advancedsearch.php">
+         (Advanced Search)
+        </a>
+       </small>
+      </span>
+      <div class="speech" style="display:inline">
+       <input id="transcript" name="vsearch" type="hidden">
+        <div id="micinform" style="float:right;text-align:left;font-size:10px;padding:5px;right:10px;background-color:#ADD8E6;display:none;">
+         Recording...
+        </div>
+        <div id="beginvsearch" style="float:right;text-align:left;font-size:10px;padding:5px;right:10px;background-color:green;display:none;">
+         Searching Movies...
+        </div>
+        <img data-cf-modified-0efb4a0dce5652516536f6c0-="" height="30px" onclick="if (!window.__cfRLUnblockHandlers) return false; startDictation()" src="gmic.svg" style="float:right;" width="30px">
+        </img>
+       </input>
+      </div>
+      <script type="0efb4a0dce5652516536f6c0-text/javascript">
+       function startDictation() {
+
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+      document.getElementById('micinform').style.display="inline";
+      setTimeout(function(){document.getElementById('micinform').style.display="none";}, 600);
+      var recognition = new webkitSpeechRecognition();
+
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.lang = "en-US";
+      recognition.start();
+
+      recognition.onresult = function(e) {
+        document.getElementById('transcript').value
+                                 = e.results[0][0].transcript;
+        recognition.stop();
+        document.getElementById('micinform').style.display="none";
+        document.getElementById('beginvsearch').style.display="inline";
+        document.getElementById('searchbox').submit();
+      };
+
+      recognition.onerror = function(e) {
+        document.getElementById('micinform').style.display="inline";
+        recognition.stop();
+      }
+
+    }
+  }
+      </script>
+     </fieldset>
+    </form>
+   </center>
+  </div>
+  <div id="permissionstatus" style="background-color:#cba;padding:7px;width:100%;font-size:10px;display:none;">
+   <font color="green">
+    <b>
+     Successfully subscribed.
+    </b>
+   </font>
+   Updates will arrive in the Notifications Drawer
+  </div>
+  <div class="topbox">
+   <ul class="topboxul">
+    <script src="wp.js?v=1" type="0efb4a0dce5652516536f6c0-text/javascript">
+    </script>
+    <li id="featurenotif" style="display:none">
+     Chrome users, now you can get
+     <font color="green">
+      Instant Notifications
+     </font>
+     about the latest movies
+     <div id="pushbutton" style="display:inline;">
+      <button data-cf-modified-0efb4a0dce5652516536f6c0-="" id="permission-btn" onclick="if (!window.__cfRLUnblockHandlers) return false; pushsubscribe();return false;" style="background-color: #4CAF50;border: none;color: white;padding: 3px 8px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;">
+       Subscribe
+      </button>
+     </div>
+    </li>
+    <script type="0efb4a0dce5652516536f6c0-text/javascript">
+     if(window.Notification.permission==='default') {document.getElementById('featurenotif').style.display='list-item';}
+    </script>
+    <li>
+     <b>
+      <a href="http://www.mobiletvshows.site">
+       MobileTVshows - TV shows
+      </a>
+     </b>
+    </li>
+    <li>
+     Need Help? Email us at
+     <a href="/cdn-cgi/l/email-protection#1b686e6b6b74696f5b7d6176746d727e6835757e6f">
+      <span class="__cf_email__" data-cfemail="c0b3b5b0b0afb2b480a6baadafb6a9a5b3eeaea5b4">
+       [email protected]
+      </span>
+     </a>
+     along with a
+     <u>
+      screenshot of the error
+     </u>
+     .
+     <br/>
+     Advertisement proposals:
+     <a href="/cdn-cgi/l/email-protection#fa9b9e8c9f888e93899f979f948eba9c8097958c939f89d4949f8e">
+      <span class="__cf_email__" data-cfemail="a3c2c7d5c6d1d7cad0c6cec6cdd7e3c5d9ceccd5cac6d08dcdc6d7">
+       [email protected]
+      </span>
+     </a>
+    </li>
+    <li style="vertical-align:middle">
+     Follow us on social media for latest updates
+     <br/>
+     <a href="https://t.me/fzgroup">
+      <img height="30px" src="telegram_icon.png?v3" style="display:inline" width="30px"/>
+     </a>
+     <a href="https://www.instagram.com/fzmovie/">
+      <img height="30px" src="instagram_icon.png?v3" style="display:inline" width="30px"/>
+     </a>
+     <a class="twitter-follow-button" data-show-count="false" data-size="large" href="https://twitter.com/FzGroup?ref_src=twsrc%5Etfw">
+      <img height="30px" src="twitter_icon.png?v3" style="display:inline" width="30px"/>
+     </a>
+     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+     </script>
+     <script async="" charset="utf-8" src="https://platform.twitter.com/widgets.js" type="0efb4a0dce5652516536f6c0-text/javascript">
+     </script>
+    </li>
+   </ul>
+  </div>
+  <br/>
+  <center>
+   <iframe height="90" name="e47d4f41b466ba3" scrolling="no" src="//ad.responservbzh.icu/deliver/iframe/e47d4f41b466ba3" style="border:none;" width="100%">
+   </iframe>
+  </center>
+  <br/>
+  <br/>
+  <div class="footer">
+   <small>
+    <a href="contact.php">
+     Contact Us
+    </a>
+    -
+    <a href="downloading.php">
+     Downloading Help
+    </a>
+    -
+    <a href="subtitles.php">
+     Subtitles
+    </a>
+    -
+    <a href="mquality.php">
+     Quality Types
+    </a>
+    -
+    <a href="support.php">
+     F.A.Q.
+    </a>
+   </small>
+  </div>
+  <br/>
+  <center>
+   <script async="" data-telegram-post="fztvseries/29" data-userpic="false" data-width="100%" src="https://telegram.org/js/telegram-widget.js?22" type="0efb4a0dce5652516536f6c0-text/javascript">
+   </script>
+  </center>
+  <div class="adblock_top" style="display:inline;">
+  </div>
+  <title>
+   FzMovies - Bollywood and Hollywood high quality HD movies for mobiles, iphone, ipads, tabs, notes in 3gp mp4 and mkv format. Also stream movies on your mobile
+  </title>
+  <div itemscope="" itemtype="https://schema.org/Movie">
+   <br/>
+   <div class="mainbox3">
+    <a href="movieslist.php?catID=2">
+     Hollywood Movies
+    </a>
+    <br/>
+    (
+    <small>
+     <i>
+      <a href="hotmovies.php?catID=2">
+       What are people watching right now?
+      </a>
+     </i>
+    </small>
+    )
+   </div>
+   <ul class="mainboxul">
+    <li style="font-size:14px">
+     <a href="imdb250.php">
+      IMDB Top 250 movies
+     </a>
+    </li>
+    <li style="font-size:14px">
+     <a href="oscars.php">
+      Oscars Winners
+     </a>
+    </li>
+    <li style="font-size:14px">
+     <a href="movieslist.php?catID=2&amp;by=downloads">
+      By Most Downloaded
+     </a>
+    </li>
+    <li style="font-size:14px">
+     <a href="genre.php?catID=2">
+      Genres
+     </a>
+     |
+     <a href="movietags.php">
+      Other Tags
+     </a>
+    </li>
+    <li style="font-size:14px">
+     <a href="movieslist.php?catID=2&amp;by=latest">
+      By Latest Updated
+     </a>
+    </li>
+    <ul class="moviesul">
+     <li style="padding:0px;">
+      <a href="movie-Deadpool%20and%20Wolverine--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        Deadpool and Wolverine
+       </span>
+      </a>
+      <dcounter>
+       WEBRip
+      </dcounter>
+     </li>
+     <meta content="2024-07-26" itemprop="datePublished"/>
+     <meta content="https://www.imdb.com/title/tt6263850/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="Shawn Levy" itemprop="name"/>
+     </div>
+     <li style="padding:0px;">
+      <a href="movie-Secret%20Life%20of%20a%20Sorority%20Girl--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        Secret Life of a Sorority Girl
+       </span>
+      </a>
+      <dcounter>
+       WEBRip
+      </dcounter>
+     </li>
+     <meta content="2024-04-06" itemprop="datePublished"/>
+     <meta content="https://www.imdb.com/title/tt32042917/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="Damián Romay" itemprop="name"/>
+     </div>
+     <li style="padding:0px;">
+      <a href="movie-My%20Sons%20Deception--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        My Sons Deception
+       </span>
+      </a>
+      <dcounter>
+       WEBRip
+      </dcounter>
+     </li>
+     <meta content="2024-08-15" itemprop="datePublished"/>
+     <meta content="https://www.imdb.com/title/tt31714949/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="Meeshelle Neal" itemprop="name"/>
+     </div>
+     <li style="padding:0px;">
+      <a href="movie-Bagman--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        Bagman
+       </span>
+      </a>
+      <dcounter>
+       CAMRip
+      </dcounter>
+     </li>
+     <meta content="2024-09-27" itemprop="datePublished"/>
+     <meta content="https://www.imdb.com/title/tt21201300/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="Colm McCarthy" itemprop="name"/>
+     </div>
+     <li style="padding:0px;">
+      <a href="movie-Madame%20Web--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        Madame Web
+       </span>
+      </a>
+      <dcounter>
+       BluRay
+      </dcounter>
+     </li>
+     <meta content="2024-02-14" itemprop="datePublished"/>
+     <meta content="https://www.imdb.com/title/tt11057302/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="S.J. Clarkson" itemprop="name"/>
+     </div>
+    </ul>
+    <li style="font-size:14px">
+     <a href="movieslist.php?catID=2&amp;by=date">
+      By Release Date
+     </a>
+    </li>
+    <ul class="moviesul">
+     <li style="padding:0px;">
+      <a href="movie-The%20Real%20West--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        The Real West
+       </span>
+      </a>
+      <dcounter>
+       WEBRip
+      </dcounter>
+     </li>
+     <meta content="2024-09-28" itemprop="datePublished"/>
+     <meta content="https://fzmovies.net/imdb_images/The.Real.West.2024.jpg" itemprop="image"/>
+     <meta content="https://www.imdb.com/title/tt33337070/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="Terry Ingram" itemprop="name"/>
+     </div>
+     <li style="padding:0px;">
+      <a href="movie-Apartment%207A--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        Apartment 7A
+       </span>
+      </a>
+      <dcounter>
+       WEB-DL
+      </dcounter>
+     </li>
+     <meta content="2024-09-27" itemprop="datePublished"/>
+     <meta content="https://fzmovies.net/imdb_images/Apartment.7A.2024.jpg" itemprop="image"/>
+     <meta content="https://www.imdb.com/title/tt14371860/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="Natalie Erika James" itemprop="name"/>
+     </div>
+     <li style="padding:0px;">
+      <a href="movie-Amber%20Alert%202024--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        Amber Alert 2024
+       </span>
+      </a>
+      <dcounter>
+       WEB-DL
+      </dcounter>
+     </li>
+     <meta content="2024-09-27" itemprop="datePublished"/>
+     <meta content="https://fzmovies.net/imdb_images/Amber.Alert.2024.jpg" itemprop="image"/>
+     <meta content="https://www.imdb.com/title/tt31450182/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="Kerry Bellessa" itemprop="name"/>
+     </div>
+    </ul>
+    <li style="font-size:14px">
+     <a href="movieslist.php?catID=2&amp;by=rating">
+      IMDB Rating
+     </a>
+    </li>
+    <li style="font-size:14px">
+     <a href="alpha.php?catID=2">
+      By Alpha
+     </a>
+    </li>
+    <li style="font-size:14px">
+     <a href="moviequotes.php">
+      Famous Movie Quotes
+     </a>
+    </li>
+    <li style="font-size:14px">
+     <a href="userlists.php">
+      User Generated Movie Lists
+     </a>
+    </li>
+    <li style="font-size:14px">
+     <a href="movieseries.php">
+      Famous Sequels
+     </a>
+    </li>
+   </ul>
+   <br/>
+   <div class="mainbox3">
+    <a href="movieslist.php?catID=1">
+     Bollywood Movies
+    </a>
+    <br/>
+    (
+    <small>
+     <i>
+      <a href="hotmovies.php?catID=1">
+       What are people watching right now?
+      </a>
+     </i>
+    </small>
+    )
+   </div>
+   <ul class="mainboxul">
+    <li style="font-size:14px">
+     <a href="filmfare.php">
+      Filmfare Awarded Movies
+     </a>
+    </li>
+    <li style="font-size:14px">
+     <a href="movieslist.php?catID=1&amp;by=latest">
+      By Latest Updated
+     </a>
+    </li>
+    <ul class="moviesul">
+     <li style="padding:0px;">
+      <a href="movie-Ulajh--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        Ulajh
+       </span>
+      </a>
+      <dcounter>
+       WEB-DL
+      </dcounter>
+     </li>
+     <meta content="2024-08-02" itemprop="datePublished"/>
+     <meta content="https://www.imdb.com/title/tt19838634/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="Sudhanshu Saria" itemprop="name"/>
+     </div>
+     <li style="padding:0px;">
+      <a href="movie-Stree%202%20Sarkate%20Ka%20Aatank--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        Stree 2 Sarkate Ka Aatank
+       </span>
+      </a>
+      <dcounter>
+       WEBRip
+      </dcounter>
+     </li>
+     <meta content="2024-08-16" itemprop="datePublished"/>
+     <meta content="https://www.imdb.com/title/tt27510174/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="Amar Kaushik" itemprop="name"/>
+     </div>
+     <li style="padding:0px;">
+      <a href="movie-Jo%20Tera%20Hai%20Woh%20Mera%20Hai--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        Jo Tera Hai Woh Mera Hai
+       </span>
+      </a>
+      <dcounter>
+       WEBRip
+      </dcounter>
+     </li>
+     <meta content="2024-09-20" itemprop="datePublished"/>
+     <meta content="https://www.imdb.com/title/tt28356014/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="Raj Trivedi" itemprop="name"/>
+     </div>
+     <li style="padding:0px;">
+      <a href="movie-Bad%20Newz--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        Bad Newz
+       </span>
+      </a>
+      <dcounter>
+       WEB-DL
+      </dcounter>
+     </li>
+     <meta content="2024-07-19" itemprop="datePublished"/>
+     <meta content="https://www.imdb.com/title/tt24517830/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="Anand Tiwari" itemprop="name"/>
+     </div>
+     <li style="padding:0px;">
+      <a href="movie-Sector%2036--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        Sector 36
+       </span>
+      </a>
+      <dcounter>
+       WEB-DL
+      </dcounter>
+     </li>
+     <meta content="2024-09-13" itemprop="datePublished"/>
+     <meta content="https://www.imdb.com/title/tt21626774/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="Aditya Nimbalkar" itemprop="name"/>
+     </div>
+    </ul>
+    <li style="font-size:14px">
+     <a href="movieslist.php?catID=1&amp;by=date">
+      By Release Date
+     </a>
+    </li>
+    <ul class="moviesul">
+     <li style="padding:0px;">
+      <a href="movie-His%20Three%20Daughters--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        His Three Daughters
+       </span>
+      </a>
+      <dcounter>
+      </dcounter>
+     </li>
+     <meta content="2024-09-20" itemprop="datePublished"/>
+     <meta content="https://fzmovies.net/imdb_images/His.Three.Daughters.2023.jpg" itemprop="image"/>
+     <meta content="https://www.imdb.com/title/tt28491891/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="Azazel Jacobs" itemprop="name"/>
+     </div>
+     <li style="padding:0px;">
+      <a href="movie-Jo%20Tera%20Hai%20Woh%20Mera%20Hai--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        Jo Tera Hai Woh Mera Hai
+       </span>
+      </a>
+      <dcounter>
+       WEBRip
+      </dcounter>
+     </li>
+     <meta content="2024-09-20" itemprop="datePublished"/>
+     <meta content="https://fzmovies.net/imdb_images/Jo.Tera.Hai.Woh.Mera.Hai.2024.jpg" itemprop="image"/>
+     <meta content="https://www.imdb.com/title/tt28356014/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="Raj Trivedi" itemprop="name"/>
+     </div>
+     <li style="padding:0px;">
+      <a href="movie-Sector%2036--hmp4.htm" itemprop="url">
+       <span itemprop="name">
+        Sector 36
+       </span>
+      </a>
+      <dcounter>
+       WEB-DL
+      </dcounter>
+     </li>
+     <meta content="2024-09-13" itemprop="datePublished"/>
+     <meta content="https://fzmovies.net/imdb_images/Sector.36.2024.jpg" itemprop="image"/>
+     <meta content="https://www.imdb.com/title/tt21626774/" itemprop="sameAs"/>
+     <div itemprop="director" itemscope="" itemtype="https://schema.org/Person">
+      <meta content="Aditya Nimbalkar" itemprop="name"/>
+     </div>
+    </ul>
+    <li style="font-size:14px">
+     <a href="movieslist.php?catID=1&amp;by=rating">
+      IMDB Rating
+     </a>
+    </li>
+    <li style="font-size:14px">
+     <a href="alpha.php?catID=1">
+      By Alpha
+     </a>
+    </li>
+    <li style="font-size:14px">
+     <a href="movieslist.php?catID=1&amp;by=downloads">
+      By Most Downloaded
+     </a>
+    </li>
+   </ul>
+   <p>
+   </p>
+   <br/>
+   <div class="mainbox3">
+    <a href="movieslist.php?catID=3">
+     Hollywood Dubbed Movies
+    </a>
+   </div>
+   <ul class="mainboxul">
+    <li style="font-size:14px">
+     <a href="movieslist.php?catID=3&amp;by=latest">
+      By Latest Updated
+     </a>
+    </li>
+    <ul class="moviesul">
+    </ul>
+    <li style="font-size:14px">
+     <a href="movieslist.php?catID=3&amp;by=date">
+      By Release Date
+     </a>
+    </li>
+    <li style="font-size:14px">
+     <a href="movieslist.php?catID=3&amp;by=alpha">
+      By Alpha
+     </a>
+    </li>
+   </ul>
+  </div>
+  <br/>
+  <div class="footer">
+   <small>
+    <a href="contact.php">
+     Contact Us
+    </a>
+    -
+    <a href="downloading.php">
+     Downloading Help
+    </a>
+    -
+    <a href="subtitles.php">
+     Subtitles
+    </a>
+    -
+    <a href="mquality.php">
+     Quality Types
+    </a>
+    -
+    <a href="support.php">
+     F.A.Q.
+    </a>
+   </small>
+  </div>
+  <br/>
+  <script data-cf-settings="0efb4a0dce5652516536f6c0-|49" defer="" src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js">
+  </script>
+ </body>
+</html>

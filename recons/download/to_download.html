@@ -1,0 +1,633 @@
+<html>
+ <head>
+  <meta content="#6A5ACD" name="theme-color"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-W9G522DEZ7" type="9fda159573cc61b5ddd2a914-text/javascript">
+  </script>
+  <script type="9fda159573cc61b5ddd2a914-text/javascript">
+   window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W9G522DEZ7');
+  </script>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-0KVWTVKY5Z" type="9fda159573cc61b5ddd2a914-text/javascript">
+  </script>
+  <script type="9fda159573cc61b5ddd2a914-text/javascript">
+   window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0KVWTVKY5Z');
+  </script>
+ </head>
+ <body>
+  <script src="//insurecarrot.com/f5/ff/e5/f5ffe582543f26a13ef1c577313d234f.js" type="9fda159573cc61b5ddd2a914-text/javascript">
+  </script>
+  <div style="position:fixed;bottom:-4px;right:-5px;z-index:3000">
+   <button data-cf-modified-9fda159573cc61b5ddd2a914-="" onclick='if (!window.__cfRLUnblockHandlers) return false; window.location.href="back.php";' style="background-color:#31B0D5;color: white;padding: 5px 12px;border-radius: 4px;border-color: #46b8da;">
+    &lt;&lt;Back
+   </button>
+  </div>
+  <div id="rainbow-progress-bar">
+  </div>
+  <script type="9fda159573cc61b5ddd2a914-text/javascript">
+   window.onload = function(){document.getElementById('rainbow-progress-bar').style.display = 'none';}
+  </script>
+  <style>
+   @keyframes rainbow { 
+  0% { background-position: 0% 100%; }
+  50% { background-position: 100% 200%; }
+  100% {background-position: 0% 100%; }
+}
+
+#rainbow-progress-bar {
+  position: absolute;
+  left:0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+  background-size: 900% 900%;
+
+  animation: rainbow 9s ease infinite;
+}
+  </style>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="css/style.css?33" rel="stylesheet" type="text/css"/>
+  <div class="adblock_top">
+  </div>
+  <center>
+   <div class="logo2">
+    <div>
+     <a href="/index.php">
+      <img src="/logo/imageedit_1_4567867331.png" width="350px"/>
+     </a>
+     <hr width="50%"/>
+    </div>
+    <script async="" defer="" src="https://accounts.google.com/gsi/client" type="9fda159573cc61b5ddd2a914-text/javascript">
+    </script>
+    <center>
+     <table style="border:none;text-align:center;">
+      <tr>
+       <td>
+        <div class="dropdown" style="display:inline;">
+         <button class="dropbtn" data-cf-modified-9fda159573cc61b5ddd2a914-="" onclick='if (!window.__cfRLUnblockHandlers) return false; window.location.href="back.php";'>
+          &lt;&lt;Back
+         </button>
+        </div>
+       </td>
+       <td>
+        <div class="dropdown" style="display:inline;">
+         <button class="dropbtn" data-cf-modified-9fda159573cc61b5ddd2a914-="" onclick='if (!window.__cfRLUnblockHandlers) return false; window.location.href="sessionhistory.php";'>
+          Recently Browsed
+         </button>
+        </div>
+       </td>
+       <td>
+        <div data-auto_select="true" data-client_id="94440402827-3sflhu31itgep4c1g42miqbp0i1689se.apps.googleusercontent.com" data-context="signin" data-itp_support="true" data-login_uri="common/googletokensignin.php" data-ux_mode="popup" id="g_id_onload">
+        </div>
+        <div class="g_id_signin" data-type="standard">
+        </div>
+       </td>
+      </tr>
+     </table>
+    </center>
+    <style>
+     .dropbtn {background-color: #4285F4;color: white;padding: 4px;padding-top:11px; padding-bottom:11px; font-size: 12px;border: none;cursor: pointer; border-radius: 8px;}
+    .dropbtn:hover, .dropbtn:focus {background-color: #2980B9;}
+    .dropdown {position: relative;display: inline-block;}
+    .dropdown-content {display: none;position: absolute;background-color: #f1f1f1;min-width: 160px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);z-index: 1;}
+    .dropdown-content a {color: black;padding: 12px 16px;text-decoration: none;display: block;}
+    .dropdown-content a:hover {background-color: #ddd}
+    .show {display:block;}
+    </style>
+   </div>
+  </center>
+  <br/>
+  <div class="searchbox">
+   <center>
+    <form action="csearch.php" id="searchbox" method="post">
+     <fieldset>
+      <legend>
+       <b>
+        <u>
+         Search for:
+        </u>
+       </b>
+      </legend>
+      <input id="searchname" name="searchname" placeholder="" type="text" value=""/>
+      <input name="Search" type="submit" value="Search"/>
+      <br/>
+      <small>
+       <b>
+        <u>
+         <i>
+          By:
+         </i>
+        </u>
+       </b>
+       <input checked="" id="searchby" name="searchby" type="radio" value="Name"/>
+       Movie Name
+       <input id="searchby" name="searchby" type="radio" value="Director"/>
+       Director
+       <input id="searchby" name="searchby" type="radio" value="Starcast"/>
+       Starcast
+      </small>
+      <br/>
+      <hr width="50%"/>
+      <small>
+       <b>
+        <u>
+         <i>
+          In:
+         </i>
+        </u>
+       </b>
+       <input checked="" id="category" name="category" type="radio" value="All"/>
+       All
+       <input id="category" name="category" type="radio" value="Bollywood"/>
+       B'Wood
+       <input id="category" name="category" type="radio" value="Hollywood"/>
+       H'Wood
+       <input id="category" name="category" type="radio" value="DHollywood"/>
+       Dubbed
+      </small>
+      <br/>
+      <br/>
+      <span style="text-align:left">
+       <small>
+        <a href="advancedsearch.php">
+         (Advanced Search)
+        </a>
+       </small>
+      </span>
+      <div class="speech" style="display:inline">
+       <input id="transcript" name="vsearch" type="hidden">
+        <div id="micinform" style="float:right;text-align:left;font-size:10px;padding:5px;right:10px;background-color:#ADD8E6;display:none;">
+         Recording...
+        </div>
+        <div id="beginvsearch" style="float:right;text-align:left;font-size:10px;padding:5px;right:10px;background-color:green;display:none;">
+         Searching Movies...
+        </div>
+        <img data-cf-modified-9fda159573cc61b5ddd2a914-="" height="30px" onclick="if (!window.__cfRLUnblockHandlers) return false; startDictation()" src="gmic.svg" style="float:right;" width="30px">
+        </img>
+       </input>
+      </div>
+      <script type="9fda159573cc61b5ddd2a914-text/javascript">
+       function startDictation() {
+
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+      document.getElementById('micinform').style.display="inline";
+      setTimeout(function(){document.getElementById('micinform').style.display="none";}, 600);
+      var recognition = new webkitSpeechRecognition();
+
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.lang = "en-US";
+      recognition.start();
+
+      recognition.onresult = function(e) {
+        document.getElementById('transcript').value
+                                 = e.results[0][0].transcript;
+        recognition.stop();
+        document.getElementById('micinform').style.display="none";
+        document.getElementById('beginvsearch').style.display="inline";
+        document.getElementById('searchbox').submit();
+      };
+
+      recognition.onerror = function(e) {
+        document.getElementById('micinform').style.display="inline";
+        recognition.stop();
+      }
+
+    }
+  }
+      </script>
+     </fieldset>
+    </form>
+   </center>
+  </div>
+  <br/>
+  <div class="mainbox3">
+   <small>
+    Follow us on social media for latest updates
+    <br/>
+    <a href="https://t.me/fzgroup">
+     <b>
+      Telegram -
+     </b>
+     <u>
+      <i>
+       @FzGroup
+      </i>
+     </u>
+    </a>
+    |
+    <a href="https://www.instagram.com/fzmovie/">
+     <b>
+      Instagram
+     </b>
+     -
+     <u>
+      <i>
+       @FzMovie
+      </i>
+     </u>
+    </a>
+    |
+    <a href="https://twitter.com/fzgroup/">
+     <b>
+      Twitter
+     </b>
+     -
+     <a class="twitter-follow-button" data-show-count="false" href="https://twitter.com/FzGroup?ref_src=twsrc%5Etfw">
+      @FzGroup
+     </a>
+     <script async="" charset="utf-8" src="https://platform.twitter.com/widgets.js" type="9fda159573cc61b5ddd2a914-text/javascript">
+     </script>
+    </a>
+   </small>
+  </div>
+  <br/>
+  <center>
+   <iframe height="90" name="e47d4f41b466ba3" scrolling="no" src="//ad.responservbzh.icu/deliver/iframe/e47d4f41b466ba3" style="border:none;" width="100%">
+   </iframe>
+  </center>
+  <br/>
+  <br/>
+  <div class="mainbox3">
+   <small>
+    Watch the latest episodes of
+    <a href="https://mobiletvshows.site/subfolder-Belgravia The Next Chapter.html" target="_blank">
+     Belgravia The Next Chapter
+    </a>
+    -
+    <b>
+     <a href="http://www.mobiletvshows.site">
+      MobileTVshows - TV shows
+     </a>
+    </b>
+   </small>
+  </div>
+  <br/>
+  <script src="wp.js?v=1" type="9fda159573cc61b5ddd2a914-text/javascript">
+  </script>
+  <br/>
+  <div class="mainbox3" id="featurenotif" style="display:none">
+   <small>
+    Chrome users, now you can get
+    <font color="green">
+     Instant Notifications
+    </font>
+    about the latest movies
+    <div id="pushbutton" style="display:inline;">
+     <button data-cf-modified-9fda159573cc61b5ddd2a914-="" id="permission-btn" onclick="if (!window.__cfRLUnblockHandlers) return false; pushsubscribe();return false;" style="background-color: #4CAF50;border: none;color: white;padding: 7px 12px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;">
+      Subscribe
+     </button>
+    </div>
+   </small>
+  </div>
+  <div id="permissionstatus" style="display:none;">
+   <font color="green">
+    <small>
+     Successfully subscribed
+    </small>
+   </font>
+   <br/>
+   <small>
+    For Mobile users : You will keep getting latest movie updates in your Notifications Drawer.
+   </small>
+  </div>
+  <script type="9fda159573cc61b5ddd2a914-text/javascript">
+   if(window.Notification.permission==='default') {document.getElementById('featurenotif').style.display='block';}
+  </script>
+  <center>
+   <script async="" data-telegram-post="fztvseries/29" data-userpic="false" data-width="100%" src="https://telegram.org/js/telegram-widget.js?22" type="9fda159573cc61b5ddd2a914-text/javascript">
+   </script>
+  </center>
+  <br/>
+  <div class="footer">
+   <small>
+    <a href="contact.php">
+     Contact Us
+    </a>
+    -
+    <a href="downloading.php">
+     Downloading Help
+    </a>
+    -
+    <a href="subtitles.php">
+     Subtitles
+    </a>
+    -
+    <a href="mquality.php">
+     Quality Types
+    </a>
+    -
+    <a href="support.php">
+     F.A.Q.
+    </a>
+   </small>
+  </div>
+  <br/>
+  <style>
+   .inline {
+  display: inline;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: serif;
+}
+.link-button:focus {
+  outline: none;
+}
+.link-button:active {
+  color:red;
+}
+  </style>
+  <title>
+   Download Fast and Furious Presents - Hobbs and Shaw (2019)
+  </title>
+  <script async="async" data-cfasync="false" src="//insurecarrot.com/6f1b66991a026c75ef9742e8a4073a20/invoke.js">
+  </script>
+  <div id="container-6f1b66991a026c75ef9742e8a4073a20">
+  </div>
+  <br/>
+  <br/>
+  <div class="moviename">
+   Fast and Furious Presents - Hobbs and Shaw
+   <dcounter>
+    (in
+    <a href="movieslist.php?catID=2&amp;by=latest">
+     Hollywood Movies
+    </a>
+    )
+   </dcounter>
+  </div>
+  <div class="moviedesc1">
+   File:
+   <textcolor1>
+    Fast_and_Furious_Presents_-_Hobbs_and_Shaw_BluRay v2_high.mp4
+   </textcolor1>
+   <br/>
+   File Size:
+   <textcolor2>
+    364 MB
+   </textcolor2>
+   <br/>
+   <ul class="downloadlinks">
+    <script type="9fda159573cc61b5ddd2a914-text/javascript">
+     document.getElementById('streamlink').oncontextmenu = function(event) {
+	 document.getElementById('streamlink').click();
+     event.preventDefault();
+     event.stopPropagation();
+     return false;
+     };
+    </script>
+    <li>
+     Online Streaming has been moved to -
+     <a href="donate.php">
+      FzMovies Pro
+     </a>
+    </li>
+    <br/>
+    <li>
+     <a data-cf-modified-9fda159573cc61b5ddd2a914-="" href="download.php?downloadkey=3-35424-44d7e1b58b77d3064f52e311c9fb0b59" id="downloadlink" onclick='if (!window.__cfRLUnblockHandlers) return false; window.open("https://insurecarrot.com/qv120b75m?key=09bc3b72666a7063c763f88a5a8d5c4f"); window.location.href="download.php?downloadkey=3-35424-44d7e1b58b77d3064f52e311c9fb0b59&amp;pt=jRGarGzOo2"; return false;'>
+      <i class="material-icons">
+       download
+      </i>
+      <br/>
+      DOWNLOAD THIS MOVIE ON YOUR DEVICE
+     </a>
+     <br/>
+    </li>
+    <br/>
+    <script type="9fda159573cc61b5ddd2a914-text/javascript">
+     document.getElementById('downloadlink').oncontextmenu = function(event) {
+	 document.getElementById('downloadlink').click();
+     event.preventDefault();
+     event.stopPropagation();
+     return false;
+     };
+    </script>
+    <br/>
+    <br/>
+    <li>
+     <b>
+      <a href="index.php">
+       Go again to Home Page
+      </a>
+     </b>
+    </li>
+    <br/>
+    <div class="mainbox3" style="text-align:left;">
+     <small>
+      <a href="" id="showadpref" style="display:none">
+       Show Ad Preferences
+      </a>
+      <br/>
+     </small>
+     <span id="adprefpost" style="display:none;">
+      <font color="green">
+       <small>
+        Preferences saved
+        <br/>
+       </small>
+      </font>
+     </span>
+     <link href="css/modal.css" rel'stylesheet'="" type="text/css"/>
+     <div class="modal" id="adprefsection" style="background-color:orange;display:block;;padding:3px;">
+      <div class="modal-content">
+       <span>
+        <small>
+         <i>
+          <b>
+           Enhance your browsing experience
+          </b>
+         </i>
+        </small>
+       </span>
+       <br/>
+       <input checked="" id="adprefpopup" name="adpref" type="radio" value="popup"/>
+       <small>
+        Popup Ad
+       </small>
+       <input id="adprefpopun" name="adpref" type="radio" value="popunder"/>
+       <small>
+        Popunder Ad
+       </small>
+       <br/>
+       <span>
+        <small>
+         <a href="" id="popexplainlink">
+          (Learn More)
+         </a>
+        </small>
+       </span>
+       <span>
+        <small>
+         <a href="" id="hideadpref">
+          (Hide Ad Preferences)
+         </a>
+        </small>
+       </span>
+      </div>
+     </div>
+     <div id="popexplain" style="padding:3px;background-color:#def;display:none;">
+      <small>
+       <table style="border-collapse:collapse;border:1px solid gray;">
+        <tr>
+         <td style="border:1px solid gray;width:50%;font-size:12px;">
+          <b>
+           Popups
+          </b>
+         </td>
+         <td style="border:1px solid gray;width:50%;font-size:12px;">
+          <b>
+           Popunders
+          </b>
+         </td>
+        </tr>
+        <tr>
+         <td style="border:1px solid gray;width:50%;font-size:12px;">
+          Advt opens in a new tab. You will have to close it before proceeding.
+         </td>
+         <td style="border:1px solid gray;width:50%;font-size:12px;">
+          Advt opens in background (no closing required) and website opens in new tab. (2X faster experience)
+         </td>
+        </tr>
+        <tr>
+         <td style="border:1px solid gray;width:50%;font-size:12px;">
+          You can use your phone's back button to go to previous page
+         </td>
+         <td style="border:1px solid gray;width:50%;font-size:12px;">
+          You have to use the Blue Back Button at bottom to go to previous page
+         </td>
+        </tr>
+        <tr>
+         <td align="center" colspan="2" style="border:1px solid gray;width:50%;font-size:12px;">
+          Please note popunder currently works properly only in
+          <b>
+           Chrome
+          </b>
+          and
+          <b>
+           Opera
+          </b>
+         </td>
+        </tr>
+        <tr>
+         <td align="center" colspan="2" style="border:1px solid gray;width:50%;font-size:12px;">
+          You can change or reset your preferences anytime
+         </td>
+        </tr>
+       </table>
+       <br/>
+       <br/>
+       <a href="" id="popexplainclose">
+        Hide
+       </a>
+      </small>
+     </div>
+     <script type="9fda159573cc61b5ddd2a914-text/javascript">
+      function ajaxpost(url,querystring,callbackfunc) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', location.protocol+'//'+location.hostname+'/'+url);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {callbackfunc()};
+        xhr.send(querystring);
+        return false;
+}
+
+var popexplain =  document.getElementById("popexplain");
+var popexplainlink = document.getElementById('popexplainlink');
+var popexplainclose = document.getElementById('popexplainclose');
+var adprefpopup = document.getElementById('adprefpopup');
+var adprefpopun = document.getElementById('adprefpopun');
+var adprefpost = document.getElementById('adprefpost');
+var adprefsection = document.getElementById("adprefsection");
+var hideadpref = document.getElementById('hideadpref');
+var showadpref = document.getElementById('showadpref');
+var closesigninreminder = document.getElementById('closesigninreminder');
+
+function prefstored() {
+     adprefpost.style.display = 'inline'; 
+     location.reload(true);
+}
+
+
+adprefpopup.onclick = function() {ajaxpost('common/adprefhandler.php','pref=popup',prefstored); return false;};
+adprefpopun.onclick = function() {ajaxpost('common/adprefhandler.php','pref=popunder',prefstored); return false;};
+popexplainlink.onclick = function() {popexplain.style.display = 'block'; return false;}
+popexplainclose.onclick = function() {popexplain.style.display = 'none'; return false;}
+hideadpref.onclick = function() {
+             ajaxpost('common/adprefhandler.php','adprefvisible=no',function() { 
+                  adprefsection.style.display = 'none'; 
+                  popexplain.style.display = 'none'; 
+                  showadpref.style.display = 'block';
+             }); 
+             return false;
+             }
+showadpref.onclick = function() {
+             adprefsection.style.display = 'block'; 
+             showadpref.style.display = 'none';
+             return false;
+             }
+closesigninreminder.onclick = function() {
+             ajaxpost('common/adprefhandler.php','signinreminder=no',function() {
+                 signinreminder.style.display = 'none';
+                 adprefsection.style.display = 'none';
+             });
+             return false;
+             }
+     </script>
+    </div>
+    <br/>
+    <br/>
+   </ul>
+  </div>
+  <center>
+   <script async="" class="__clb-1977727" data-cfasync="false" src="//bullionglidingscuttle.com/lv/esnk/1977727/code.js" type="text/javascript">
+   </script>
+  </center>
+  <br/>
+  <div class="footer">
+   <small>
+    <a href="contact.php">
+     Contact Us
+    </a>
+    -
+    <a href="downloading.php">
+     Downloading Help
+    </a>
+    -
+    <a href="subtitles.php">
+     Subtitles
+    </a>
+    -
+    <a href="mquality.php">
+     Quality Types
+    </a>
+    -
+    <a href="support.php">
+     F.A.Q.
+    </a>
+   </small>
+  </div>
+  <br/>
+  <script data-cf-settings="9fda159573cc61b5ddd2a914-|49" defer="" src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js">
+  </script>
+ </body>
+</html>
