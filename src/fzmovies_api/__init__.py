@@ -19,3 +19,13 @@ __author__ = "Smartwa"
 __repo__ = "https://github.com/Simatwa/fzmovie-api"
 
 logger = logging.getLogger(__name__)
+
+from fzmovies_api.main import Search, Navigate, DownloadLinks, Download, Auto
+
+__all__ = [
+    "Search",
+    "Navigate",
+    "DownloadLinks",
+    "Download",
+    "Auto",
+]

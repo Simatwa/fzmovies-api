@@ -11,7 +11,13 @@ if not PATH.exists():
         with Path.open(PATH, "w+", encoding="utf-8") as f2:
             f2.write(f1.read())
 
-INSTALL_REQUIRE = ["requests[socks]==2.31.0", "bs4==0.0.1", "pydantic==2.9.2"]
+INSTALL_REQUIRE = [
+    "requests[socks]==2.31.0",
+    "bs4==0.0.1",
+    "pydantic==2.9.2",
+    "colorama==0.4.6",
+    "tqdm==4.65.0",
+]
 
 cli_reqs = [
     "click==8.1.3",

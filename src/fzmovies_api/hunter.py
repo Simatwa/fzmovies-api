@@ -103,10 +103,8 @@ class Metadata:
 
     session_expired_pattern = r".*Your download keys have expired.*"
 
-    def __init__(self):
-        pass
-
-    def _get_resource(self, url: str, timeout: int = 20, *args, **kwargs):
+    @classmethod
+    def _get_resource(cls, url: str, timeout: int = 20, *args, **kwargs):
         """Fetch online resource
 
         Args:
@@ -119,7 +117,7 @@ class Metadata:
         resp = session.get(url, timeout=timeout, *args, **kwargs)
         resp.raise_for_status()
         if "text/html" in resp.headers.get("Content-Type", ""):
-            has_expired = re.search(self.session_expired_pattern, resp.text)
+            has_expired = re.search(cls.session_expired_pattern, resp.text)
             if has_expired:
                 raise errors.SessionExpired(
                     utils.get_absolute_url(
@@ -130,7 +128,8 @@ class Metadata:
 
         return resp
 
-    def movie_page(self, movie_url: str) -> str:
+    @classmethod
+    def movie_page(cls, movie_url: str) -> str:
         """Requests movie page
 
         Args:
@@ -141,9 +140,10 @@ class Metadata:
         """
         movie_url = str(movie_url)
         assert movie_url.endswith(".htm"), f"Invalid movie page url '{movie_url}'"
-        return self._get_resource(movie_url).text
+        return cls._get_resource(movie_url).text
 
-    def to_download_page(self, movie_file_url: str) -> str:
+    @classmethod
+    def to_download_page(cls, movie_file_url: str) -> str:
         """Requests page leading to download links
 
         Args:
@@ -156,9 +156,10 @@ class Metadata:
         assert (
             "/download1.php?downloadoptionskey=" in movie_file_url
         ), f"Invalid movie-file url - '{movie_file_url}'"
-        return self._get_resource(movie_file_url).text
+        return cls._get_resource(movie_file_url).text
 
-    def to_download_links_page(self, download_url: str) -> str:
+    @classmethod
+    def to_download_links_page(cls, download_url: str) -> str:
         """Requests page containing download links
 
         Args:
@@ -171,4 +172,4 @@ class Metadata:
         assert (
             "/download.php?downloadkey=" in download_url
         ), f"Invalid to-download-links url - '{download_url}'"
-        return self._get_resource(download_url).text
+        return cls._get_resource(download_url).text

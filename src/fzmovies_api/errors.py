@@ -1,3 +1,9 @@
+"""
+This module contains exception classes 
+that are used across fzmovies_api
+"""
+
+
 class LoadIndexError(Exception):
     """fzmovies.net failed to load successfully"""
 
