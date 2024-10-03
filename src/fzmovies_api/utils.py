@@ -1,3 +1,9 @@
+"""
+This module provide functions for
+performing common and frequently required tasks
+as well as storing common variables across the package
+"""
+
 from bs4 import BeautifulSoup as bts
 from os import path
 

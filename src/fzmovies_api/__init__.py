@@ -1,7 +1,7 @@
 """
 This package does the Lord's work
 of automating the process of downloading a movie
-using fzmovies.net. 
+from fzmovies.net. 
 
 Right from performing `search` query down to downloading
 it in your desired quality.

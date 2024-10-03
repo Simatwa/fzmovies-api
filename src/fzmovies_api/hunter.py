@@ -1,4 +1,7 @@
 """
+This module does the ground-work of interacting
+with fzmovies.net in fetching the required resources 
+that revolves around:
 - Load index page
 - Perform search
 - Select the target movie
@@ -6,11 +9,9 @@
 - Select link
 """
 
-import re
 import requests
 import typing as t
 from fzmovies_api import errors, logger
-import fzmovies_api.models as models
 
 session = requests.Session()
 
@@ -68,7 +69,7 @@ class Index:
             searchby (t.Literal["Name", "Director", "Starcast"], optional): Search category. Defaults to "Name".
             category (t.Literal["All", "Bollywood", "Hollywood", "DHollywood"], optional): Movie category. Defaults to "All".
         """
-        assert type(query) is str, f"Query must of {str} datatype only"
+        assert type(query) is str, f"Query must be of {str} datatype only"
         assert (
             searchby in self.searchby_options
         ), f"Searchby '{searchby}' is NOT one of '{self.searchby_options}'"
@@ -91,8 +92,8 @@ class Index:
 class Metadata:
     """Fetch html contents for :
     - Movie page
-    - To download page
-    - To download links page
+    - To-download page
+    - To-download-links page
     """
 
     def __init__(self):
@@ -149,5 +150,5 @@ class Metadata:
         download_url = str(download_url)
         assert (
             "/download.php?downloadkey=" in download_url
-        ), f"Invalid to-download links url - '{download_url}'"
+        ), f"Invalid to-download-links url - '{download_url}'"
         return self._get_resource(download_url).text

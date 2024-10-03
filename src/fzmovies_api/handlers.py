@@ -115,7 +115,6 @@ def to_download_handler(contents: str) -> str:
     Returns:
         str: to-download-links url
     """
-    # id="downloadlink"
     soup = utils.souper(contents)
     link = soup.find("a", {"id": "downloadlink"}).get("href")
     return utils.get_absolute_url(link)
@@ -134,7 +133,7 @@ def download_links_handler(contents: str) -> models.DownloadMovie:
     soup = utils.souper(contents)
     info = soup.find("div", {"class": "mainbox4"}).text.strip()
     movie_desc = soup.find("div", {"class": "moviedesc"})
-    title = movie_desc.find("textcolor1").text.strip()
+    name = movie_desc.find("textcolor1").text.strip()
     size = movie_desc.find("textcolor2").text.strip()
 
     download_link_items: list[dict] = []
@@ -150,5 +149,5 @@ def download_links_handler(contents: str) -> models.DownloadMovie:
             dict(url=utils.get_absolute_url(url), connections=connections)
         )
     return models.DownloadMovie(
-        title=title, links=download_link_items, size=size, info=info
+        name=name, links=download_link_items, size=size, info=info
     )
