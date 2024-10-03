@@ -9,9 +9,11 @@ that revolves around:
 - Select link
 """
 
+import re
 import requests
 import typing as t
 from fzmovies_api import errors, logger
+import fzmovies_api.utils as utils
 
 session = requests.Session()
 
@@ -71,6 +73,8 @@ class Index:
             category (t.Literal["All", "Bollywood", "Hollywood", "DHollywood"], optional): Movie category. Defaults to "All".
         """
         assert type(query) is str, f"Query must be of {str} datatype only"
+        if not query:
+            raise ValueError("Query cannot be empty")
         assert (
             searchby in self.searchby_options
         ), f"Searchby '{searchby}' is NOT one of '{self.searchby_options}'"
@@ -97,6 +101,8 @@ class Metadata:
     - To-download-links page
     """
 
+    session_expired_pattern = r".*Your download keys have expired.*"
+
     def __init__(self):
         pass
 
@@ -107,8 +113,21 @@ class Metadata:
             timeout (int): Http request timeout
             url (str): Url to resource
         """
+        if not session.cookies.get("PHPSESSID"):
+            logger.debug("Initializing session")
+            Index()
         resp = session.get(url, timeout=timeout, *args, **kwargs)
         resp.raise_for_status()
+        if "text/html" in resp.headers.get("Content-Type", ""):
+            has_expired = re.search(self.session_expired_pattern, resp.text)
+            if has_expired:
+                raise errors.SessionExpired(
+                    utils.get_absolute_url(
+                        utils.souper(has_expired.group()).find("a").get("href")
+                    ),
+                    # errors.SessionExpired.__doc__
+                )
+
         return resp
 
     def movie_page(self, movie_url: str) -> str:
