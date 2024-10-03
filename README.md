@@ -1,7 +1,5 @@
 <h1 align="center">fzmovies-api</h1>
 
-> Unofficial Python API/SDK for fzmovies.net
-
 <p align="center">
 <a href="#"><img alt="Python version" src="https://img.shields.io/pypi/pyversions/fzmovies-api"/></a>
 <a href="https://github.com/Simatwa/fzmovies-api/actions/workflows/python-test.yml"><img src="https://github.com/Simatwa/fzmovies-api/actions/workflows/python-test.yml/badge.svg" alt="Python Test"/></a>
@@ -16,6 +14,8 @@
 <a href="https://github.com/Simatwa/fzmovies-api/releases/latest"><img src="https://img.shields.io/github/downloads/Simatwa/fzmovies-api/total?label=Asset%20Downloads&color=success" alt="Downloads"></img></a>
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com/Simatwa/fzmovies-api"/></a>
 </p>
+
+> Unofficial Python API/SDK for fzmovies.net
 
 ```python
 from fzmovies_api import Auto
