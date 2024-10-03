@@ -6,6 +6,7 @@ and use them to generate models
 import re
 import fzmovies_api.models as models
 import fzmovies_api.utils as utils
+import fzmovies_api.errors as errors
 
 
 def search_handler(contents: str) -> models.SearchResults:
@@ -23,9 +24,14 @@ def search_handler(contents: str) -> models.SearchResults:
 
     for search_result in soup.find_all("div", {"class": "mainbox"}):
         url = search_result.find("a").get("href")
-        title_soup, year_soup, distribution_soup, about_soup = search_result.find(
-            "span"
-        ).find_all("small")
+        span = search_result.find("span")
+        if not span:
+            title = soup.find("title").text.strip().split("-", 1)[1]
+            raise errors.ZeroSearchResults(
+                title
+                + " yielded no results. Check the spelling or try broadening your search."
+            )
+        title_soup, year_soup, distribution_soup, about_soup = span.find_all("small")
         title = title_soup.text.strip()
         year = re.sub(r"\(|\)", "", year_soup.text.strip())
         distribution = re.sub(r"\(|\)", "", distribution_soup.text.strip())
