@@ -60,12 +60,14 @@ def movie_handler(contents: str) -> models.MovieFiles:
     movie_files: list[dict[str, str]] = []
     recommended_movies: list[dict[str, str]] = []
     soup = utils.souper(contents)
-    trailer = soup.find(
+    trailer_soup = soup.find(
         "iframe",
         {
             "allow": "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         },
-    ).get("src")
+    )
+
+    trailer = trailer_soup.get("src") if trailer_soup else None
 
     for movie in soup.find("div", {"class": "owl-carousel owl-theme"}).find_all("a"):
         title = movie.get("alt")
@@ -81,6 +83,8 @@ def movie_handler(contents: str) -> models.MovieFiles:
 
     for movie_file in soup.find_all("ul", {"class": "moviesfiles"}):
         urls = movie_file.find_all("a")
+        if not urls:
+            continue
         title_url = urls[0]
         title = title_url.text.strip()
         url = title_url.get("href")
@@ -133,12 +137,12 @@ def download_links_handler(contents: str) -> models.DownloadMovie:
     soup = utils.souper(contents)
     info = soup.find("div", {"class": "mainbox4"}).text.strip()
     movie_desc = soup.find("div", {"class": "moviedesc"})
-    name = movie_desc.find("textcolor1").text.strip()
+    filename = movie_desc.find("textcolor1").text.strip()
     size = movie_desc.find("textcolor2").text.strip()
 
     download_link_items: list[dict] = []
 
-    for dlink in soup.find_all("ul", {"class": "downloadlinks"}, limit=3)[2].find_all(
+    for dlink in soup.find_all("ul", {"class": "downloadlinks"}, limit=3)[-1].find_all(
         "li"
     ):
         url = dlink.find("a").get("href")
@@ -149,5 +153,5 @@ def download_links_handler(contents: str) -> models.DownloadMovie:
             dict(url=utils.get_absolute_url(url), connections=connections)
         )
     return models.DownloadMovie(
-        name=name, links=download_link_items, size=size, info=info
+        filename=filename, links=download_link_items, size=size, info=info
     )

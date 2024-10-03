@@ -82,7 +82,7 @@ class MovieFiles(BaseModel):
     """
 
     files: list[FileMetadata]
-    trailer: HttpUrl
+    trailer: t.Union[HttpUrl, None]
     recommended: list[RecommendedMovie]
 
 

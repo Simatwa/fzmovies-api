@@ -64,6 +64,7 @@ class Index:
         category: t.Literal["All", "Bollywood", "Hollywood", "DHollywood"] = "All",
     ):
         """
+        Performs `POST` request search
         Args:
             query (str): Search query.
             searchby (t.Literal["Name", "Director", "Starcast"], optional): Search category. Defaults to "Name".
