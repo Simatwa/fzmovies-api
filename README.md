@@ -38,9 +38,6 @@ $ pip install fzmovies-api[all]
    # e.g python -m fzmovies_api download "Thor - Love and Thunder"
    ```
 
-   > ![NOTE]
-   > Shorhand for `python -m fzmovies_api` is `fzmovies`
-
    `$ python -m fzmovies_api download --help`
 
 ```
@@ -64,6 +61,10 @@ Options:
   --help                          Show this message and exit.
 
 ```
+
+> ![NOTE]
+> Shorthand for `python -m fzmovies_api` is `fzmovies`
+
 
 ## Disclaimer
 
