@@ -10,6 +10,9 @@ from os import path
 site_url = "https://fzmovies.net/"
 
 
+file_index_quality_map = {"480p": 0, "720p": 1}
+
+
 def souper(contents: str) -> bts:
     """Converts str object to `soup`"""
     return bts(contents, "html.parser")

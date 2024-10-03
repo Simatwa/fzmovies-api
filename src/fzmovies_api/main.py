@@ -15,11 +15,13 @@ It achieves this through 4 classes
 import fzmovies_api.hunter as hunter
 import fzmovies_api.handlers as handler
 import fzmovies_api.models as models
+import fzmovies_api.utils as utils
 import typing as t
 from tqdm import tqdm
 from colorama import Fore
 from os import path, getcwd
 from fzmovies_api import logger
+from pathlib import Path
 
 
 class Search(hunter.Index):
@@ -138,7 +140,7 @@ class Download:
     def last_url(self) -> str:
         """Last url pointing to movie file"""
         return handler.final_download_link_handler(
-            hunter.Metadata.download_link(self.download_link.url)
+            hunter.Metadata.download_link(self.download_link.url.__str__())
         )
 
     def save(
@@ -168,7 +170,7 @@ class Download:
         """
         current_downloaded_size = 0
         current_downloaded_size_in_mb = 0
-        save_to = path.join(dir, filename)
+        save_to = Path(dir) / filename
         movie_file_url = self.last_url
 
         def pop_range_in_session_headers():
@@ -240,12 +242,11 @@ class Auto(Search):
     """Performs a search and proceeds with  every first item
     all the way to downloading."""
 
-    def __init__(self, link_index: t.Literal[0, 1] = 0, *args, **kwargs):
+    def __init__(self, quality: t.Literal["480p", "720p"] = "720p", *args, **kwargs):
         """Initializes `Auto`
 
         Args:
-            link_index (t.Literal[0,1], optional): Index of movie file link to proceed with
-                0 - low quality  & small size, 1 - high quality & large size. Defaults to 0.
+            quality (t.Literal[480p, 720p], optional): Video quality. Default to 720p.
             The rest are arguments for initializing `Search`.
 
         Example:
@@ -255,21 +256,30 @@ class Auto(Search):
           start.run(filename="Fast and furious shows and hobbs.mp4")
           # or simply
           start.run()
+          # to resume incomplete downloads
+          start.run(resume=True)
         ```
         """
 
+        assert quality in utils.file_index_quality_map, (
+            f"Movie quality '{quality}' is not one of"
+            f" {list(utils.file_index_quality_map.keys())}"
+        )
         super().__init__(*args, **kwargs)
         self.target = self.results.movies[0]
-        self.link_index = link_index
+        self._movie_file_index = utils.file_index_quality_map.get(quality)
 
-    def run(self, *args, **kwargs):
+    def run(self, *args, **kwargs) -> Path:
         """Start auto mode.
         Args:
-            Rest are arguments for `Download.save`
+            The rest are arguments for `Download.save`
+
+        Returns:
+            Path: Absolute path to the downloaded movie file
         """
-        movie_file = Navigate(self.target).results.files[0]
+        movie_file = Navigate(self.target).results.files[self._movie_file_index]
         download_movie = DownloadLinks(movie_file).results
         download_link = download_movie.links[0]
         if not kwargs.get("filename"):
             kwargs["filename"] = download_movie.filename
-        download = Download(download_link).save(*args, **kwargs)
+        return Download(download_link).save(*args, **kwargs)
