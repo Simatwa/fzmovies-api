@@ -26,7 +26,7 @@ class FileMetadata(BaseModel):
     ss: HttpUrl
 
 
-class RecommendedMovies(BaseModel):
+class RecommendedMovie(BaseModel):
     title: str
     url: HttpUrl
     cover_photo: HttpUrl
@@ -35,4 +35,16 @@ class RecommendedMovies(BaseModel):
 class MovieFiles(BaseModel):
     files: list[FileMetadata]
     trailer: HttpUrl
-    recommended: list[RecommendedMovies]
+    recommended: list[RecommendedMovie]
+
+
+class DownloadLink(BaseModel):
+    url: HttpUrl
+    connections: int
+
+
+class DownloadMovie(BaseModel):
+    title: str
+    links: list[DownloadLink]
+    size: str
+    info: str
