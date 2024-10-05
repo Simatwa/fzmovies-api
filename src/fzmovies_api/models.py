@@ -33,7 +33,7 @@ class MovieInSearch(BaseModel):
     cover_photo: HttpUrl
 
     def __str__(self):
-        return f"<MovieInSearch title='{self.title}',year={self.year}>"
+        return f'<MovieInSearch title="{self.title}",year={self.year}>'
 
 
 class SearchResults(BaseModel):
@@ -48,7 +48,7 @@ class SearchResults(BaseModel):
     last_page: t.Union[HttpUrl, None] = None
 
     def __str__(self):
-        return f"<SearchResults movies='{ ' | '.join(self.movies) }'>"
+        return f"<SearchResults movies=[{ ' | '.join([str(movie) for movie in self.movies]) }]>"
 
 
 class FileMetadata(BaseModel):
@@ -68,7 +68,7 @@ class FileMetadata(BaseModel):
     ss: HttpUrl
 
     def __str__(self):
-        return f"<FileMetadata title='{self.title}',size='{self.size}'>"
+        return f'<FileMetadata title="{self.title}",size="{self.size}">'
 
 
 class RecommendedMovie(BaseModel):
@@ -83,7 +83,7 @@ class RecommendedMovie(BaseModel):
     cover_photo: HttpUrl
 
     def __str__(self):
-        return f"<RecommendedMovie title='{self.title}'>"
+        return f'<RecommendedMovie title="{self.title}">'
 
 
 class MovieFiles(BaseModel):
@@ -98,7 +98,7 @@ class MovieFiles(BaseModel):
     recommended: list[RecommendedMovie]
 
     def __str__(self):
-        return f"<MovieFiles files='{' | '.join(self.files)}'>"
+        return f'<MovieFiles files="{' | '.join([str(file) for file in self.files])}">'
 
 
 class DownloadLink(BaseModel):
@@ -111,7 +111,7 @@ class DownloadLink(BaseModel):
     connections: int
 
     def __str__(self):
-        return f"<DownloadLink url='{self.url}', connections={self.connections}>"
+        return f'<DownloadLink url="{self.url}", connections={self.connections}>'
 
 
 class DownloadMovie(BaseModel):
@@ -129,6 +129,6 @@ class DownloadMovie(BaseModel):
 
     def __str__(self):
         return (
-            f"<DownloadMovie filename='{self.filename}',"
-            f" links={len(self.links)}, size='{self.size}'>"
+            f'<DownloadMovie filename="{self.filename}",'
+            f' links={len(self.links)}, size="{self.size}">'
         )
