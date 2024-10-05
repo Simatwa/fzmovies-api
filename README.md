@@ -80,11 +80,21 @@ Options:
 ```python
 # Search by Starcast
 
-from fzmovies_api import Auto
-Auto(
-  query="Jason Statham",
-  searchby="Starcast"
-  ).run()
+from fzmovies_api import Search
+
+search = Search(
+    query="Jason Statham",
+    searchby="Starcast"
+)
+
+print(
+    search.results
+)
+
+# Output
+"""
+<SearchResults movies=[<MovieInSearch title="Fast and Furious Presents - Hobbs and Shaw",year=2019> | <MovieInSearch title="Fast X",year=2023> | <MovieInSearch title="The Fate of the Furious [Part 8]",year=2017> | <MovieInSearch title="Mechanic Resurrection",year=2016> | <MovieInSearch title="The Meg",year=2018> | <MovieInSearch title="Wrath of Man",year=2021> | <MovieInSearch title="The Beekeeper",year=2024> | <MovieInSearch title="Operation Fortune Ruse de guerre",year=2023> | <MovieInSearch title="The Expendables 2",year=2012> | <MovieInSearch title="The Expendables 3",year=2014> | <MovieInSearch title="Meg 2 The Trench",year=2023> | <MovieInSearch title="Homefront",year=2013> | <MovieInSearch title="Parker",year=2013> | <MovieInSearch title="Safe",year=2012> | <MovieInSearch title="The Expendables 1",year=2010> | <MovieInSearch title="The Transporter 2002",year=2002> | <MovieInSearch title="Transporter 3 2008",year=2008> | <MovieInSearch title="Death Race",year=2008> | <MovieInSearch title="Expend4bles",year=2023> | <MovieInSearch title="Transporter 2 2005",year=2005>]>
+"""
 ```
 
 
