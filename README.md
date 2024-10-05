@@ -18,7 +18,14 @@
 
 ```python
 from fzmovies_api import Auto
-Auto(query="Jason Statham", searchby="Starcast").run()
+
+Auto(
+     query="Fast and Furious 5",
+     quality="720p",
+  ).run()
+  
+# Will show download progressbar
+
 ```
 
 ## Installation
@@ -69,6 +76,16 @@ Options:
 
 > [!NOTE]
 > **fzmovies_api** provides a lot more than what you've just gone through here. Documenting isn't my thing, but I will try to update it as time goes by. Additionally, I cannot document this any better than the code itself; therefore, consider going through it.
+
+```python
+# Search by Starcast
+
+from fzmovies_api import Auto
+Auto(
+  query="Jason Statham",
+  searchby="Starcast"
+  ).run()
+```
 
 
 ## Disclaimer
