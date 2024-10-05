@@ -98,7 +98,7 @@ class MovieFiles(BaseModel):
     recommended: list[RecommendedMovie]
 
     def __str__(self):
-        return f'<MovieFiles files="{' | '.join([str(file) for file in self.files])}">'
+        return f'<MovieFiles files="{" | ".join([str(file) for file in self.files])}">'
 
 
 class DownloadLink(BaseModel):
