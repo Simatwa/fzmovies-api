@@ -1,3 +1,8 @@
+"""
+This module contains search filters
+along with page navigation filters
+"""
+
 from abc import ABC, abstractmethod
 from fzmovies_api.hunter import Metadata
 import fzmovies_api.models as models
@@ -33,7 +38,7 @@ class Filter(ABC):
 
 
 class FilterBase(Filter):
-    """Parent base class for Filters class"""
+    """Parent base class for Filter classes"""
 
     def get_contents(self) -> str:
         """Fetch Html contents of the url
