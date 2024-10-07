@@ -66,7 +66,6 @@ class TestReleaseYearFilter(FiltersTestBase, TestCase):
         self.filter_class = f.ReleaseYearFilter()
 
 
-@unittest.SkipTest
 class TestMovieTagFilter(FiltersTestBase, TestCase):
 
     def setUp(self):

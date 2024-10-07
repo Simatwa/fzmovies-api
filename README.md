@@ -97,6 +97,25 @@ print(
 """
 ```
 
+#### Perform Search Using Filters
+
+```python
+from fzmovies_api import Search
+from fzmovies_api.filters import IMDBTop250Filter
+
+search = Search(
+    query = IMDBTop250Filter()
+)
+
+print(
+    search.results
+)
+
+#Output
+"""
+<SearchResults movies=[<MovieInSearch title="Schindlers List",year=1993> | <MovieInSearch title="The Godfather - Part 1",year=1972> | <MovieInSearch title="Pulp Fiction",year=1994> | <MovieInSearch title="12 Angry Men",year=1957> | <MovieInSearch title="Terminator 2 Judgment Day",year=1991> | <MovieInSearch title="The Avengers",year=2012> | <MovieInSearch title="The Cold Light of Day",year=2012> | <MovieInSearch title="The Good the Bad and the Ugly",year=1966> | <MovieInSearch title="The Shawshank Redemption",year=1994> | <MovieInSearch title="Raging Bull",year=1980> | <MovieInSearch title="The Lion King",year=1994> | <MovieInSearch title="New Gladiators",year=2002> | <MovieInSearch title="The Dictator",year=2012> | <MovieInSearch title="The Matrix",year=1999> | <MovieInSearch title="Heat",year=1995> | <MovieInSearch title="2001 A Space Odyssey",year=1968> | <MovieInSearch title="The Silence of the Lambs",year=1991> | <MovieInSearch title="The Departed",year=2006> | <MovieInSearch title="Braveheart",year=1995> | <MovieInSearch title="Up",year=2009>]>
+"""
+```
 
 ## Disclaimer
 
