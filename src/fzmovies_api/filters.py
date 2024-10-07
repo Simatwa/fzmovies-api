@@ -1,0 +1,279 @@
+from abc import ABC, abstractmethod
+from fzmovies_api.hunter import Metadata
+import fzmovies_api.models as models
+from fzmovies_api.handlers import search_handler
+from fzmovies_api.utils import category_id_map, assert_membership
+from datetime import datetime
+import typing as t
+
+
+class Filter(ABC):
+    """Abstract Base class for filters"""
+
+    url: str = None
+    """Absolute url to the fzmovies-page containing the movie listings"""
+
+    @abstractmethod
+    def get_contents(self) -> str:
+        """Get Html contents of the url
+
+        Returns:
+            str: html contents
+        """
+        pass
+
+    @abstractmethod
+    def get_results(self) -> models.SearchResults:
+        """Get modelled version of the results
+
+        Returns:
+            models.SearchResults: Results
+        """
+
+
+class FilterBase(Filter):
+    """Parent base class for Filters class"""
+
+    def get_contents(self) -> str:
+        """Fetch Html contents of the url
+
+        Returns:
+            str: html contents
+        """
+        return Metadata.get_resource(self.url).text
+
+    def get_results(self) -> models.SearchResults:
+        """Get modelled version of the movie list
+
+        Returns:
+            models.SearchResults: Results
+        """
+        return search_handler(self.get_contents())
+
+
+class IMDBTop250Filter(FilterBase):
+    """IMDB TOp 250 movies filter"""
+
+    url = "https://fzmovies.net/imdb250.php"
+
+
+class OscarsFilter(FilterBase):
+    """Oscars Best Picture filter"""
+
+    url = "https://fzmovies.net/imdb250.php"
+
+
+class MostDownloadedFilter(FilterBase):
+    """Most downloaded filter"""
+
+    def __init__(self, category: t.Literal["Bollywood", "Hollywood"] = "Hollywood"):
+        """Initialize `MostDownloadedFilter`
+
+        Args:
+            category (t.Literal["Bollywood", "Hollywood"], optional): Movie category. Defaults to "Hollywood".
+        """
+        assert_membership(category, category_id_map.keys(), "Category")
+        self.url = f"https://fzmovies.net/movieslist.php?catID={category_id_map[category]}&by=downloads"
+
+
+class RecentlyReleasedFilter(FilterBase):
+    """Recently released movies filter"""
+
+    def __init__(self, category: t.Literal["Bollywood", "Hollywood"] = "Hollywood"):
+        """Initialize `RecentlyReleasedFilter`
+
+        Args:
+            category (t.Literal["Bollywood", "Hollywood"], optional): Movie category. Defaults to "Hollywood".
+        """
+        assert_membership(category, category_id_map.keys(), "Category")
+        self.url = f"https://fzmovies.net/movieslist.php?catID={category_id_map[category]}&by=date"
+
+
+class RecentlyPublishedFilter(FilterBase):
+    """Recently added movies"""
+
+    def __init__(self, category: t.Literal["Bollywood", "Hollywood"] = "Hollywood"):
+        """Initialize `RecentlyPublishedFilter`
+
+        Args:
+            category (t.Literal["Bollywood", "Hollywood"], optional): Movie category. Defaults to "Hollywood".
+        """
+        assert_membership(category, category_id_map.keys(), "Category")
+        self.url = f"https://fzmovies.net/movieslist.php?catID={category_id_map[category]}&by=latest"
+
+
+class AlphabeticalOrderFilter(FilterBase):
+    """Movie name Alphabetical order filter"""
+
+    available_ranges = (
+        "AtoC",
+        "DtoC",
+        "GtoI",
+        "JtoL",
+        "MtO",
+        "PtoR",
+        "StoU",
+        "VtoZ",
+        "1to9",
+    )
+
+    def __init__(
+        self,
+        range: t.Literal[
+            "AtoC", "DtoC", "GtoI", "JtoL", "MtO", "PtoR", "StoU", "VtoZ", "1to9"
+        ] = "AtoC",
+        category: t.Literal["Bollywood", "Hollywood"] = "Hollywood",
+    ):
+        """Initializes `AlphabeticalOrderFilter`
+
+        Args:
+            range (t.Literal["AtoC","DtoC","GtoI","JtoL","MtO","PtoR","StoU","VtoZ","1to9"], optional): Alphabetical ranges. Defaults to "AtoC".
+            category (t.Literal["Bollywood", "Hollywood"], optional): Movie category. Defaults to "Hollywood".
+        """
+        assert_membership(range, self.available_ranges)
+        assert_membership(category, category_id_map)
+        self.url = f"https://fzmovies.net/alpha.php?range={range}&catID={category_id_map[category]}"
+
+
+class MovieGenreFilter(FilterBase):
+    """Movies for a specific genre filter"""
+
+    available_genres = (
+        "Action",
+        "Adventure",
+        "Animation",
+        "Biography",
+        "Comedy",
+        "Crime",
+        "Documentary",
+        "Drama",
+        "Family",
+        "Fantasy",
+        "Film-Noir",
+        "History",
+        "Horror",
+        "Music",
+        "Musical",
+        "Mystery",
+        "Romance",
+        "Sci-Fi",
+        "Sport",
+        "Thriller",
+        "War",
+        "Western",
+    )
+
+    def __init__(
+        self,
+        name: t.Literal[
+            "Action",
+            "Adventure",
+            "Animation",
+            "Biography",
+            "Comedy",
+            "Crime",
+            "Documentary",
+            "Drama",
+            "Family",
+            "Fantasy",
+            "Film-Noir",
+            "History",
+            "Horror",
+            "Music",
+            "Musical",
+            "Mystery",
+            "Romance",
+            "Sci-Fi",
+            "Sport",
+            "Thriller",
+            "War",
+            "Western",
+        ] = "Action",
+        category: t.Literal["Bollywood", "Hollywood"] = "Hollywood",
+    ):
+        """Initialize `MovieGenreFilter`
+
+        Args:
+            name (t.Literal['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime',
+            'Documentary', 'Drama', 'Family', 'Fantasy', 'Film-Noir', 'History', 'Horror', 'Music',
+            'Musical', 'Mystery', 'Romance', 'Sci-Fi', 'Sport', 'Thriller', 'War', 'Western'], optional):
+            Movie genre name. Defaults to "Action".
+            category (t.Literal["Bollywood", "Hollywood"], optional): Movie category. Defaults to "Hollywood".
+        """
+        assert_membership(name, self.available_genres, "Genre")
+        assert_membership(category, category_id_map.keys())
+        self.url = f"https://fzmovies.net/genre.php?catID={category_id_map[category]}&genre={name}"
+
+
+class ReleaseYearFilter(FilterBase):
+    """Movie releasal year filter"""
+
+    def __init__(
+        self,
+        year: int = int(datetime.now().year),
+        category: t.Literal["Bollywood", "Hollywood"] = "Hollywood",
+    ):
+        """Initialize `ReleaseYearFilter`
+
+        Args:
+            year (int, optional): Movie releasal year. Defaults to `datetime.now().year`
+            category (t.Literal["Bollywood", "Hollywood"], optional): Movie category. Defaults to "Hollywood".
+        """
+        assert isinstance(year, int), "Year must be an Integer"
+        assert_membership(category, category_id_map.keys(), "Category")
+        self.url = f"https://fzmovies.net/year.php?year={year}&catID={category_id_map[category]}"
+
+
+class MovieTagFilter(FilterBase):
+    """Movie tag filter"""
+
+    def __init__(self, tag: str):
+        """Initializes `MovieTagFilter`
+
+        Args:
+            tag (str): Tag name
+        """
+        assert isinstance(tag, str), f"Tag must be of {str} not {type(tag)}"
+        self.url = f"https://fzmovies.net/movietags.php?tag={tag}"
+
+
+class SearchNavigatorFilter(FilterBase):
+    """Navigates movie-listing-page"""
+
+    targets = ["next", "last"]
+
+    def __init__(
+        self,
+        search_results: models.SearchResults,
+        target: t.Literal["next", "last"] = "next",
+    ):
+        """Initializes `SearchNavigatorFilter`
+
+        Args:
+            search_results (models.SearchResults): Search results.
+            target (t.Literal['next', 'last']): Page to navigate to. Defaults to "next".
+        """
+        assert isinstance(search_results, models.SearchResults), (
+            f"search_results should be an instance of  {models.SearchResults}"
+            f" not {type(search_results)}"
+        )
+        assert target in self.targets, f"Target must be one of {self.targets}"
+        target_url_mapper = {
+            "next": search_results.next_page,
+            "last": search_results.last_page,
+        }
+        self.url = target_url_mapper[target]
+
+
+fzmoviesFilterType = t.Union[
+    IMDBTop250Filter,
+    OscarsFilter,
+    RecentlyPublishedFilter,
+    RecentlyReleasedFilter,
+    AlphabeticalOrderFilter,
+    MovieGenreFilter,
+    ReleaseYearFilter,
+    MovieTagFilter,
+    MostDownloadedFilter,
+    SearchNavigatorFilter,
+]

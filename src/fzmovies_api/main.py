@@ -22,6 +22,7 @@ from colorama import Fore
 from os import path, getcwd
 from fzmovies_api import logger
 from pathlib import Path
+from fzmovies_api.filters import fzmoviesFilterType, Filter, SearchNavigatorFilter
 
 
 class Search(hunter.Index):
@@ -29,45 +30,91 @@ class Search(hunter.Index):
 
     def __init__(
         self,
-        query: str,
+        query: str | fzmoviesFilterType,
         searchby: t.Literal["Name", "Director", "Starcast"] = "Name",
         category: t.Literal["All", "Bollywood", "Hollywood", "DHollywood"] = "All",
     ):
         """
-        Performs `POST` request search
+        Initializes `Search`
         Args:
-            query (str): Search query.
+            query (str|fzmoviesFilterType): Search query.
             searchby (t.Literal["Name", "Director", "Starcast"], optional): Search category. Defaults to "Name".
             category (t.Literal["All", "Bollywood", "Hollywood", "DHollywood"], optional): Movie category. Defaults to "All".
         """
 
         super().__init__()
         self.query = query
-        self.searchby = searchby
-        self.category = category
+        if isinstance(query, Filter):
+            self.searchby = query.__class__.__name__
+            self.category = "Unknown"
+            self.is_filter = True
+        else:
+            self.is_filter = False
+            self.searchby = searchby
+            self.category = category
+
+        self._latest_results = None
 
     def __str__(self):
-        f"<fzmovies_api.main.Search query='{self.query}',searchby='{self.searchby},category='{self.category}'>"
+        return f"<fzmovies_api.main.Search query='{self.query}',searchby='{self.searchby},category='{self.category}'>"
 
     @property
     def html_contents(self) -> str:
         """Results of the movie search"""
-        return self.search(self.query, self.searchby, self.category)
+        return (
+            self.query.get_contents()
+            if self.is_filter
+            else self.search(self.query, self.searchby, self.category)
+        )
 
     @property
     def results(self) -> models.SearchResults:
-        """Modelled list of movies found"""
-        return handler.search_handler(self.html_contents)
+        """Modelled search results"""
+        resp = (
+            self.query.get_results()
+            if self.is_filter
+            else handler.search_handler(self.html_contents)
+        )
+        self._latest_results = resp
+        return resp
+
+    def next(self) -> "Search":
+        """Navigate to the next page of search-results
+
+        Returns:
+            Search
+        """
+        assert self._latest_results != None, "Query results first before navigating."
+        return Search(
+            query=SearchNavigatorFilter(
+                self._latest_results,
+                "next",
+            ).get_results()
+        )
+
+    def last(self) -> "Search":
+        """Navigate to the last page search-results
+
+        Returns:
+            Search
+        """
+        assert self._latest_results, "Query results first before navigating."
+        return Search(
+            query=SearchNavigatorFilter(
+                self._latest_results,
+                "last",
+            )
+        )
 
 
 class Navigate:
-    """Proceed over to target movie"""
+    """Proceed over to the target movie"""
 
     def __init__(self, target_movie: models.MovieInSearch):
         """Initializes `Navigate`
 
         Args:
-            search_results (MovieInSearch): Modelled search results.
+            search_results (models.MovieInSearch): Modelled search results.
         """
         assert isinstance(target_movie, models.MovieInSearch), (
             "search_results must be an instance of "
@@ -76,7 +123,7 @@ class Navigate:
         self.target_movie = target_movie
 
     def __str__(self):
-        f"<fzmovies_api.main.Navigate target_movie='{self.target_movie}'>"
+        return f"<fzmovies_api.main.Navigate target_movie='{self.target_movie}'>"
 
     @property
     def html_contents(self) -> str:
@@ -105,7 +152,7 @@ class DownloadLinks:
         self.movie_file = movie_file
 
     def __str__(self):
-        return f"<DownloadLinks movie_file='{self.movie_file}'>"
+        return f"<fzmovies_api.main.DownloadLinks movie_file='{self.movie_file}'>"
 
     @property
     def html_contents(self):
@@ -135,6 +182,9 @@ class Download:
             f"'{models.DownloadLink}' not '{type(download_link)}'"
         )
         self.download_link = download_link
+
+    def __str__(self):
+        return f"<fzmovies_api.main.Download : {self.download_link}>"
 
     @property
     def last_url(self) -> str:
@@ -268,6 +318,9 @@ class Auto(Search):
         super().__init__(*args, **kwargs)
         self.target = self.results.movies[0]
         self._movie_file_index = utils.file_index_quality_map.get(quality)
+
+    def __str__(self):
+        return f"<fzmovies_api.main.Auto : {self.target}>"
 
     def run(self, *args, **kwargs) -> Path:
         """Start auto mode.

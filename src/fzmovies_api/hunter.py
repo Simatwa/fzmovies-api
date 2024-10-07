@@ -72,7 +72,9 @@ class Index:
             searchby (t.Literal["Name", "Director", "Starcast"], optional): Search category. Defaults to "Name".
             category (t.Literal["All", "Bollywood", "Hollywood", "DHollywood"], optional): Movie category. Defaults to "All".
         """
-        assert type(query) is str, f"Query must be of {str} datatype only"
+        assert (
+            type(query) is str
+        ), f"Query must be of {str} datatype only not {type(query)}"
         if not query:
             raise ValueError("Query cannot be empty")
         assert (
@@ -104,7 +106,7 @@ class Metadata:
     session_expired_pattern = r".*Your download keys have expired.*"
 
     @classmethod
-    def _get_resource(cls, url: str, timeout: int = 20, *args, **kwargs):
+    def get_resource(cls, url: str, timeout: int = 20, *args, **kwargs):
         """Fetch online resource
 
         Args:
@@ -140,7 +142,7 @@ class Metadata:
         """
         movie_url = str(movie_url)
         assert movie_url.endswith(".htm"), f"Invalid movie page url '{movie_url}'"
-        return cls._get_resource(movie_url).text
+        return cls.get_resource(movie_url).text
 
     @classmethod
     def to_download_page(cls, movie_file_url: str) -> str:
@@ -156,7 +158,7 @@ class Metadata:
         assert (
             "/download1.php?downloadoptionskey=" in movie_file_url
         ), f"Invalid movie-file url - '{movie_file_url}'"
-        return cls._get_resource(movie_file_url).text
+        return cls.get_resource(movie_file_url).text
 
     @classmethod
     def to_download_links_page(cls, download_url: str) -> str:
@@ -172,7 +174,7 @@ class Metadata:
         assert (
             "/download.php?downloadkey=" in download_url
         ), f"Invalid to-download-links url - '{download_url}'"
-        return cls._get_resource(download_url).text
+        return cls.get_resource(download_url).text
 
     @classmethod
     def download_link(cls, last_download_url: str) -> str:
@@ -188,4 +190,4 @@ class Metadata:
         assert (
             "/dlink.php?id=" in last_download_url
         ), f"Invalid last-download url - '{last_download_url}'"
-        return cls._get_resource(last_download_url).text
+        return cls.get_resource(last_download_url).text

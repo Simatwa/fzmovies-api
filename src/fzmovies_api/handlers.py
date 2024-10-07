@@ -31,7 +31,12 @@ def search_handler(contents: str) -> models.SearchResults:
                 title
                 + " yielded no results. Check the spelling or try broadening your search."
             )
-        title_soup, year_soup, distribution_soup, about_soup = span.find_all("small")
+        extract = span.find_all("small")
+        if len(extract) == 4:
+            title_soup, year_soup, distribution_soup, about_soup = extract
+        else:
+            title_soup, year_soup, about_soup = extract
+            distribution_soup = utils.souper("<h4>Unknown</h4>")
         title = title_soup.text.strip()
         year = re.sub(r"\(|\)", "", year_soup.text.strip())
         distribution = re.sub(r"\(|\)", "", distribution_soup.text.strip())
