@@ -66,7 +66,7 @@ class IMDBTop250Filter(FilterBase):
 class OscarsFilter(FilterBase):
     """Oscars Best Picture filter"""
 
-    url = "https://fzmovies.net/imdb250.php"
+    url = "https://fzmovies.net/oscars.php"
 
 
 class MostDownloadedFilter(FilterBase):

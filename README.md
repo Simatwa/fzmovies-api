@@ -23,7 +23,7 @@ Auto(
      query="Fast and Furious 5",
      quality="720p",
   ).run()
-  
+
 # Will show download progressbar
 
 ```
