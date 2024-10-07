@@ -101,9 +101,15 @@ class Metadata:
     - Movie page
     - To-download page
     - To-download-links page
+    - Movies m
     """
 
     session_expired_pattern = r".*Your download keys have expired.*"
+
+    question_and_answers_url_map = {
+        "formats": "https://fzmovies.net/mquality.php",
+        "faq": "https://fzmovies.net/support.php",
+    }
 
     @classmethod
     def get_resource(cls, url: str, timeout: int = 20, *args, **kwargs):
@@ -191,3 +197,18 @@ class Metadata:
             "/dlink.php?id=" in last_download_url
         ), f"Invalid last-download url - '{last_download_url}'"
         return cls.get_resource(last_download_url).text
+
+    @classmethod
+    def questions_and_answers_content(
+        cls, category: t.Literal["formats", "faq"]
+    ) -> str:
+        """Requests page containing the resource.
+
+        Args:
+            category (t.Literal["formats", "faq"]): QA resource category
+
+        Returns:
+            str: HTMl contents of the page.
+        """
+        utils.assert_membership(category, list(cls.question_and_answers_url_map.keys()))
+        return cls.get_resource(cls.question_and_answers_url_map[category]).text

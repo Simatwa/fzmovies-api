@@ -185,3 +185,22 @@ def final_download_link_handler(contents: str) -> str:
     soup = utils.souper(contents)
 
     return soup.find("div", {"class": "mainbox3"}).find("a").get("href")
+
+
+def questions_and_answers_handler(contents: str) -> dict[str, str]:
+    """Extracts question and answers from html contents to
+    form dictionary.
+
+    Returns:
+        dict[str, str]: Release formats and their description.
+    """
+    soup = utils.souper(contents)
+    formats_soup = soup.find_all("div", {"class": "question"})
+    descriptions_soup = soup.find_all("div", {"class": "answer"})
+    formats_list: list[str] = [
+        format.text.strip().split(" ")[1] for format in formats_soup
+    ]
+    descriptions_list: list[str] = [
+        description.text.strip() for description in descriptions_soup
+    ]
+    return dict(zip(formats_list, descriptions_list))

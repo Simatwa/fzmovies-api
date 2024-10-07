@@ -1,5 +1,5 @@
 import unittest, os
-from fzmovies_api import Search, Navigate, DownloadLinks, Download
+from fzmovies_api import Search, Navigate, DownloadLinks, Download, Support
 import fzmovies_api.models as models
 
 search_kwargs = {"query": "Jason Statham", "searchby": "Starcast"}
@@ -60,6 +60,17 @@ class TestDownload(unittest.TestCase):
         )
         self.assertTrue(saved_to.is_file())
         os.remove(saved_to)
+
+
+class TestSupport(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def test_movie_release_formats(self):
+        self.assertIsInstance(Support.get_movie_release_formats(), dict)
+
+    def test_frequently_asked_questions(self):
+        self.assertIsInstance(Support.get_frequently_asked_questions(), dict)
 
 
 if __name__ == "__main__":

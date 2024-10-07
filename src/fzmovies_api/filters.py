@@ -66,7 +66,37 @@ class IMDBTop250Filter(FilterBase):
 class OscarsFilter(FilterBase):
     """Oscars Best Picture filter"""
 
-    url = "https://fzmovies.net/oscars.php"
+    categories: tuple[str] = (
+        "Best Picture",
+        "Best Cinematography",
+        "Best Original Score",
+        "Nominations - Best Picture",
+        "Nominations - Best Cinematography",
+    )
+
+    def __init__(
+        self,
+        category: t.Literal[
+            "Best Picture",
+            "Best Cinematography",
+            "Best Original Score",
+            "Nominations - Best Picture",
+            "Nominations - Best Cinematography",
+        ] = "Best Picture",
+    ):
+        """Initializes `OscarsFilter`
+
+        Args:
+            category (t.Literal[
+              "Best Picture",
+              "Best Cinematography",
+              "Best Original Score",
+              "Nominations - Best Picture",
+              "Nominations - Best Cinematography"],
+              optional): Oscars' award category. Defaults to "Best Picture".
+        """
+        assert_membership(category, self.categories)
+        self.url = f"https://fzmovies.net/oscars.php?category=Oscars {category}"
 
 
 class MostDownloadedFilter(FilterBase):

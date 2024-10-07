@@ -364,3 +364,31 @@ class Auto(Search):
         if not kwargs.get("filename"):
             kwargs["filename"] = download_movie.filename
         return Download(download_link).save(*args, **kwargs)
+
+
+class Support:
+    """Provides general helpful resources such as
+    movie release qualities and FAQ.
+    """
+
+    @staticmethod
+    def get_movie_release_formats() -> dict[str, str]:
+        """Movie release quality and their descriptions
+
+        Returns:
+            dict[str, str]: quality, description
+        """
+        return handler.questions_and_answers_handler(
+            hunter.Metadata.questions_and_answers_content("formats")
+        )
+
+    @staticmethod
+    def get_frequently_asked_questions() -> dict[str, str]:
+        """Questions and answers mostly asked
+
+        Returns:
+            dict[str, str]: questions, answers
+        """
+        return handler.questions_and_answers_handler(
+            hunter.Metadata.questions_and_answers_content("faq")
+        )
