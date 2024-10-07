@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from fzmovies_api.hunter import Metadata
 import fzmovies_api.models as models
+import fzmovies_api.errors as errors
 from fzmovies_api.handlers import search_handler
 from fzmovies_api.utils import category_id_map, assert_membership
 from datetime import datetime
@@ -240,18 +241,18 @@ class MovieTagFilter(FilterBase):
 class SearchNavigatorFilter(FilterBase):
     """Navigates movie-listing-page"""
 
-    targets = ["next", "last"]
+    targets = ["first", "previous", "next", "last"]
 
     def __init__(
         self,
         search_results: models.SearchResults,
-        target: t.Literal["next", "last"] = "next",
+        target: t.Literal["first", "previous", "next", "last"] = "next",
     ):
         """Initializes `SearchNavigatorFilter`
 
         Args:
             search_results (models.SearchResults): Search results.
-            target (t.Literal['next', 'last']): Page to navigate to. Defaults to "next".
+            target (t.Literal["first", "previous", "next", "last"]): Page to navigate to. Defaults to "next".
         """
         assert isinstance(search_results, models.SearchResults), (
             f"search_results should be an instance of  {models.SearchResults}"
@@ -259,10 +260,16 @@ class SearchNavigatorFilter(FilterBase):
         )
         assert target in self.targets, f"Target must be one of {self.targets}"
         target_url_mapper = {
+            "first": search_results.first_page,
+            "previous": search_results.previous_page,
             "next": search_results.next_page,
             "last": search_results.last_page,
         }
         self.url = target_url_mapper[target]
+        if self.url is None:
+            raise errors.TargetPageURLNotFound(
+                f"The targeted page, {target}, has no url"
+            )
 
 
 fzmoviesFilterType = t.Union[

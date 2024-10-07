@@ -54,15 +54,26 @@ def search_handler(contents: str) -> models.SearchResults:
         )
 
     pages = soup.find("div", {"class": "mainbox2"})
+    first_page = previous_page = next_page = last_page = last_page = None
     if pages:
-        next_page_soup, last_page_soup = pages.find_all("a")
-        next_page = next_page_soup.get("href")
-        last_page = last_page_soup.get("href")
-    else:
-        next_page = last_page = None
+        for nav in pages.find_all("a"):
+            link = nav.get("href")
+            text = nav.text.strip()
+            if text == "First":
+                first_page = link
+            elif text == "Prev":
+                previous_page = link
+            elif text == "Next":
+                next_page = link
+            elif text == "Last":
+                last_page = link
 
     return models.SearchResults(
-        movies=search_result_items, next_page=next_page, last_page=last_page
+        movies=search_result_items,
+        next_page=next_page,
+        last_page=last_page,
+        first_page=first_page,
+        previous_page=previous_page,
     )
 
 

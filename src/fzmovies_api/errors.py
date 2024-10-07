@@ -30,3 +30,9 @@ class SessionExpired(Exception):
         """
         super().__init__(message if message else self.__class__.__doc__)
         self.redirect_to = redirect_to
+
+
+class TargetPageURLNotFound(Exception):
+    """The page to navigate to has `null` as its url"""
+
+    pass

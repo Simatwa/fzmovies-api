@@ -39,11 +39,15 @@ class MovieInSearch(BaseModel):
 class SearchResults(BaseModel):
     """Joined listed results of query
     `movies` : List of `MovieInSearch`
+    `first_page` : Link to the first page of the results.
+    `previous_page` : Link to the previuos page of the results.
     `next_page` : Link to next page of the results.
     `last_page` : Link to the last page of the results.
     """
 
     movies: list[MovieInSearch]
+    first_page: t.Union[HttpUrl, None] = None
+    previous_page: t.Union[HttpUrl, None] = None
     next_page: t.Union[HttpUrl, None] = None
     last_page: t.Union[HttpUrl, None] = None
 

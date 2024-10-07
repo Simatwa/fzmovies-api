@@ -78,6 +78,34 @@ class Search(hunter.Index):
         self._latest_results = resp
         return resp
 
+    def first(self) -> "Search":
+        """Navigate to the fast page of search-results
+
+        Returns:
+            Search
+        """
+        assert self._latest_results != None, "Query results first before navigating."
+        return Search(
+            query=SearchNavigatorFilter(
+                self._latest_results,
+                "first",
+            )
+        )
+
+    def previous(self) -> "Search":
+        """Navigate to the previous page of search-results
+
+        Returns:
+            Search
+        """
+        assert self._latest_results != None, "Query results first before navigating."
+        return Search(
+            query=SearchNavigatorFilter(
+                self._latest_results,
+                "previous",
+            )
+        )
+
     def next(self) -> "Search":
         """Navigate to the next page of search-results
 
@@ -89,11 +117,11 @@ class Search(hunter.Index):
             query=SearchNavigatorFilter(
                 self._latest_results,
                 "next",
-            ).get_results()
+            )
         )
 
     def last(self) -> "Search":
-        """Navigate to the last page search-results
+        """Navigate to the last page of search-results
 
         Returns:
             Search
