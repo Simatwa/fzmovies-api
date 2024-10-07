@@ -117,6 +117,34 @@ print(
 """
 ```
 
+#### Fetch All Search Results
+
+```python
+from fzmovies_api import Search
+from fzmovies_api.filters import MovieGenreFilter
+
+search = Search(
+    query = MovieGenreFilter(
+        "Action"
+    )
+)
+
+while True:
+    r = search.results
+
+    print(
+        len(r.movies),
+        r,
+        ' - ',
+        end='\n\n'
+    )
+    
+    if r.next_page:
+        search = search.next()
+    else:
+        break
+```
+
 ## Disclaimer
 
 This project is not affiliated with or endorsed by fzmovies.net or its owners. The API may change without notice, and this project does not guarantee compatibility with all future updates. The developers of this project are not responsible for any damages or losses resulting from the use of this API. This project is provided AS IS, without warranty of any kind, express or implied.
