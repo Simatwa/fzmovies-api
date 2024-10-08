@@ -8,6 +8,7 @@ INSTALL_REQUIRE = [
     "pydantic==2.9.2",
     "colorama==0.4.6",
     "tqdm==4.65.0",
+    "brotli==1.1.0",
 ]
 
 cli_reqs = [
