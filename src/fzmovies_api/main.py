@@ -85,7 +85,7 @@ class Search(hunter.Index):
 
     def get_all_results(
         self, stream: bool = False, limit: int = 1000000
-    ) -> models.SearchResults | t.Generator[models.SearchResults]:
+    ) -> models.SearchResults | t.Generator[models.SearchResults, None, None]:
         """Fetch all search results
 
         Args:
@@ -93,7 +93,7 @@ class Search(hunter.Index):
             limit (int, optional): Total movies not to exceed - `multiple of 20`. Defaults to 1000000.
 
         Returns:
-            models.SearchResults | t.Generator[models.SearchResults]
+            models.SearchResults | t.Generator[models.SearchResults, None, None]
         """
 
         def for_stream(self, limit):
