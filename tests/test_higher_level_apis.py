@@ -18,17 +18,20 @@ class TestSearch(unittest.TestCase):
         self.assertIsInstance(self.search.results, models.SearchResults)
 
     def test_all_search_results(self):
-        self.assertIsInstance(self.search.get_all_results(), models.SearchResults)
+        self.assertIsInstance(
+            self.search.get_all_results(limit=20), models.SearchResults
+        )
+
+    def test_limited_search_results(self):
+        limit = 20
+        results = self.search.get_all_results(limit=limit)
+        self.assertEqual(limit, len(results.movies))
 
     def test_stream_all_search_results(self):
-        results = self.search.get_all_results(stream=True)
+        results = self.search.get_all_results(stream=True, limit=20)
         self.assertIsInstance(results, t.Generator)
-        count = 0
         for result in results:
-            count += 1
             self.assertIsInstance(result, models.SearchResults)
-            if count >= 2:
-                break
 
 
 class TestNavigate(unittest.TestCase):

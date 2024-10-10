@@ -84,36 +84,42 @@ class Search(hunter.Index):
         return self.get_all_results()
 
     def get_all_results(
-        self, stream: bool = False
+        self, stream: bool = False, limit: int = 1000000
     ) -> models.SearchResults | t.Generator[models.SearchResults]:
         """Fetch all search results
 
         Args:
             stream (bool, optional): Yield results. Defaults to False.
+            limit (int, optional): Total movies not to exceed - `multiple of 20`. Defaults to 1000000.
 
         Returns:
             models.SearchResults | t.Generator[models.SearchResults]
         """
 
-        def for_stream(self):
+        def for_stream(self, limit):
+            total_movies_search = 0
             while True:
                 r: models.SearchResults = self.results
+                total_movies_search += len(r.movies)
                 yield r
                 if r.next_page:
                     self = self.next()
                 else:
                     break
 
-        def for_non_stream(self):
+                if total_movies_search >= limit:
+                    break
+
+        def for_non_stream(self, limit):
             cache = None
-            for results in for_stream(self):
+            for results in for_stream(self, limit):
                 if cache is None:
                     cache = results
                 else:
                     cache = cache + results
             return cache
 
-        return for_stream(self) if stream else for_non_stream(self)
+        return for_stream(self, limit) if stream else for_non_stream(self, limit)
 
     def first(self) -> "Search":
         """Navigate to the first page of search-results

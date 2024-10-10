@@ -129,20 +129,14 @@ search = Search(
     )
 )
 
-while True:
-    r = search.results
+for result in search.get_all_results(
+    limit=40,
+    stream=True
+    ):
 
     print(
-        len(r.movies),
-        r,
-        ' - ',
-        end='\n\n'
+        result, end='\n\n'
     )
-    
-    if r.next_page:
-        search = search.next()
-    else:
-        break
 ```
 
 ## Disclaimer
