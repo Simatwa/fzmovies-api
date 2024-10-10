@@ -1,4 +1,5 @@
 import click
+import rich
 from os import getcwd
 from sys import exit
 from fzmovies_api import __version__
@@ -98,10 +99,65 @@ def download(
     )
 
 
+class EntryGroup:
+
+    @fzmovies.group()
+    def support():
+        """Provides helpful info such as FAQs and release formats"""
+        pass
+
+
+class Support_:
+    """Contains support info such as FAQs and release formats"""
+
+    @staticmethod
+    @click.command()
+    def release_formats():
+        """Show movie release formats and their descriptions"""
+        from fzmovies_api import Support
+        from rich.table import Table
+
+        awesome_table = Table(show_lines=True, title="Movie Release Formats".title())
+
+        awesome_table.add_column("Index", justify="center", style="yellow")
+        awesome_table.add_column("Format", justify="left", style="cyan")
+        awesome_table.add_column("Description", justify="left", style="cyan")
+
+        for index, key_value in enumerate(
+            Support.get_movie_release_formats().items(), start=1
+        ):
+            format, description = key_value
+            awesome_table.add_row(str(index), format, description)
+
+        rich.print(awesome_table)
+
+    @click.command()
+    def FAQs():
+        """Show FAQs and their answers"""
+        from fzmovies_api import Support
+        from rich.table import Table
+
+        awesome_table = Table(show_lines=True, title="FAQs and Answers".title())
+
+        awesome_table.add_column("Index", justify="center", style="yellow")
+        awesome_table.add_column("Question", justify="left", style="cyan")
+        awesome_table.add_column("Answer", justify="left", style="cyan")
+
+        for index, key_value in enumerate(
+            Support.get_frequently_asked_questions().items(), start=1
+        ):
+            question, answer = key_value
+            awesome_table.add_row(str(index), question, answer)
+
+        rich.print(awesome_table)
+
+
 def main():
     """Console entry point"""
     try:
         fzmovies.add_command(download)
+        EntryGroup.support.add_command(Support_.release_formats)
+        EntryGroup.support.add_command(Support_.FAQs)
         fzmovies()
     except Exception as e:
         print(f"> Error : {e.args[1] if e.args and len(e.args)>1 else e}")

@@ -11,9 +11,7 @@ INSTALL_REQUIRE = [
     "brotli==1.1.0",
 ]
 
-cli_reqs = [
-    "click==8.1.3",
-]
+cli_reqs = ["click==8.1.3", "rich==13.9.2"]
 
 EXTRA_REQUIRE = {
     "cli": cli_reqs,

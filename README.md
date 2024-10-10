@@ -203,7 +203,11 @@ start.run()
 > [!TIP]
 > Shorthand for `python -m fzmovies_api` is `fzmovies`
 
-   `$ fzmovies download --help`
+<details>
+
+<summary>
+   <code>$ fzmovies download --help</code>
+</summary>
 
 ```
 Usage: python -m fzmovies_api download [OPTIONS] QUERY
@@ -226,6 +230,8 @@ Options:
   --help                          Show this message and exit.
 
 ```
+
+</details>
 
 > [!NOTE]
 > **fzmovies_api** provides a lot more than what you've just gone through here. Documenting isn't my thing, but I will try to update it as time goes by. Additionally, I cannot document this any better than the code itself; therefore, consider going through it.
