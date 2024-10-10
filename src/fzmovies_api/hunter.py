@@ -131,7 +131,6 @@ class Metadata:
                     utils.get_absolute_url(
                         utils.souper(has_expired.group()).find("a").get("href")
                     ),
-                    # errors.SessionExpired.__doc__
                 )
 
         return resp
@@ -192,7 +191,6 @@ class Metadata:
         Returns:
             str: Url pointing to the movie file ready to be downloaded.
         """
-        # /dlink.php?id
         assert (
             "/dlink.php?id=" in last_download_url
         ), f"Invalid last-download url - '{last_download_url}'"

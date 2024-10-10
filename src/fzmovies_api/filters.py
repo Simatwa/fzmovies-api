@@ -64,7 +64,7 @@ class IMDBTop250Filter(FilterBase):
 
 
 class OscarsFilter(FilterBase):
-    """Oscars Best Picture filter"""
+    """Oscars Best filter"""
 
     categories: tuple[str] = (
         "Best Picture",

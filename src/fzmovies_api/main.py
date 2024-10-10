@@ -411,7 +411,7 @@ class Auto(Search):
 
 class Support:
     """Provides general helpful resources such as
-    movie release qualities and FAQ.
+    movie release qualities and FAQs.
     """
 
     @staticmethod
@@ -419,7 +419,7 @@ class Support:
         """Movie release quality and their descriptions
 
         Returns:
-            dict[str, str]: quality, description
+            dict[str, str]: format, description
         """
         return handler.questions_and_answers_handler(
             hunter.Metadata.questions_and_answers_content("formats")
