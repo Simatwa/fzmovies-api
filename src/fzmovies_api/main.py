@@ -78,8 +78,45 @@ class Search(hunter.Index):
         self._latest_results = resp
         return resp
 
+    @property
+    def all_results(self) -> models.SearchResults:
+        """All search results"""
+        return self.get_all_results()
+
+    def get_all_results(
+        self, stream: bool = False
+    ) -> models.SearchResults | t.Generator[models.SearchResults]:
+        """Fetch all search results
+
+        Args:
+            stream (bool, optional): Yield results. Defaults to False.
+
+        Returns:
+            models.SearchResults | t.Generator[models.SearchResults]
+        """
+
+        def for_stream(self):
+            while True:
+                r: models.SearchResults = self.results
+                yield r
+                if r.next_page:
+                    self = self.next()
+                else:
+                    break
+
+        def for_non_stream(self):
+            cache = None
+            for results in for_stream(self):
+                if cache is None:
+                    cache = results
+                else:
+                    cache = cache + results
+            return cache
+
+        return for_stream(self) if stream else for_non_stream(self)
+
     def first(self) -> "Search":
-        """Navigate to the fast page of search-results
+        """Navigate to the first page of search-results
 
         Returns:
             Search

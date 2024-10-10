@@ -54,6 +54,20 @@ class SearchResults(BaseModel):
     def __str__(self):
         return f"<SearchResults movies=[{ ' | '.join([str(movie) for movie in self.movies]) }]>"
 
+    def __add__(self, other: "SearchResults") -> "SearchResults":
+        if not isinstance(other, SearchResults):
+            raise ValueError(
+                f"Operand must be an instance of {SearchResults} not {type(other)}"
+            )
+
+        return SearchResults(
+            movies=self.movies + other.movies,
+            first_page=other.first_page,
+            previous_page=other.previous_page,
+            next_page=other.next_page,
+            last_page=other.last_page,
+        )
+
 
 class FileMetadata(BaseModel):
     """Movie file

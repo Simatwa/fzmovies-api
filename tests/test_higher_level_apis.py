@@ -1,6 +1,7 @@
 import unittest, os
 from fzmovies_api import Search, Navigate, DownloadLinks, Download, Support
 import fzmovies_api.models as models
+import typing as t
 
 search_kwargs = {"query": "Jason Statham", "searchby": "Starcast"}
 
@@ -15,6 +16,19 @@ class TestSearch(unittest.TestCase):
 
     def test_search_results(self):
         self.assertIsInstance(self.search.results, models.SearchResults)
+
+    def test_all_search_results(self):
+        self.assertIsInstance(self.search.get_all_results(), models.SearchResults)
+
+    def test_stream_all_search_results(self):
+        results = self.search.get_all_results(stream=True)
+        self.assertIsInstance(results, t.Generator)
+        count = 0
+        for result in results:
+            count += 1
+            self.assertIsInstance(result, models.SearchResults)
+            if count >= 2:
+                break
 
 
 class TestNavigate(unittest.TestCase):
