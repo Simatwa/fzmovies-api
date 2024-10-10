@@ -83,7 +83,7 @@ class FileMetadata(BaseModel):
     size: str
     hits: int
     mediainfo: HttpUrl
-    ss: HttpUrl
+    ss: HttpUrl | None = None
 
     def __str__(self):
         return f'<FileMetadata title="{self.title}",size="{self.size}">'

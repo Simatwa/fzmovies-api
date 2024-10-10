@@ -116,7 +116,10 @@ def movie_handler(contents: str) -> models.MovieFiles:
         size = " ".join(dcounter[:2])
         hits = dcounter[-3]
         mediainfo = urls[1].get("href")
-        ss = urls[2].get("href")
+        if len(urls) >= 3:
+            ss = urls[2].get("href")
+        else:
+            ss = None
         movie_files.append(
             dict(
                 title=title,
@@ -124,7 +127,7 @@ def movie_handler(contents: str) -> models.MovieFiles:
                 size=size,
                 hits=hits,
                 mediainfo=utils.get_absolute_url(mediainfo),
-                ss=utils.get_absolute_url(ss),
+                ss=utils.get_absolute_url(ss) if ss else None,
             )
         )
     return models.MovieFiles(

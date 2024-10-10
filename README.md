@@ -42,44 +42,11 @@ Alternatively, you can download binaries for your system from [here](https://git
 
 ## Usage
 
-### CLI
+<details>
 
-- Basic case yet very handy
-
-   ```sh
-   $ python -m fzmovies_api download <QUERY>
-   # e.g python -m fzmovies_api download "Thor - Love and Thunder"
-   ```
-
-> [!TIP]
-> Shorthand for `python -m fzmovies_api` is `fzmovies`
-
-   `$ python -m fzmovies_api download --help`
-
-```
-Usage: python -m fzmovies_api download [OPTIONS] QUERY
-
-  Perform search and download first movie in the search results
-
-Options:
-  -s, --searchby [Name|Director|Starcast]
-                                  Query search-by filter - Name
-  -c, --category [All|Bollywood|Hollywood|DHollywood]
-                                  Query movie category - All
-  -q, --quality [480p|720p]       Movie file download quality - 720p
-  -o, --output TEXT               Filename for saving the movie contents to
-  -d, --directory TEXT            Directory for saving the movie contents -
-                                  pwd
-  -z, --chunk-size INTEGER        Chunk_size for downloading files in KB - 512
-  -r, --resume                    Resume downloading incomplete files - False
-  -q, --quiet                     Not to stdout anything - False
-  -y, --yes                       Okay to all prompts - False
-  --help                          Show this message and exit.
-
-```
-
-> [!NOTE]
-> **fzmovies_api** provides a lot more than what you've just gone through here. Documenting isn't my thing, but I will try to update it as time goes by. Additionally, I cannot document this any better than the code itself; therefore, consider going through it.
+<summary>
+  <h3>Developers</h3>
+</summary>
 
 ```python
 # Search by Starcast
@@ -159,6 +126,109 @@ for result in search.get_all_results(
         result, end='\n\n'
     )
 ```
+
+#### Download Movies
+
+```python
+from fzmovies_api import Search, Navigate, DownloadLinks, Download
+from fzmovies_api.filters import OscarsFilter
+
+search = Search(
+    query=OscarsFilter(
+        category="Best Picture"
+    )
+)
+
+for movie in search.all_results.movies:
+
+    # Navigate to the specific movie-page
+    movie_page = Navigate(movie).results
+
+    # Go to page containing download link
+    download_link_page = DownloadLinks(
+        movie_page.files[1]
+    )
+
+    download_link_metadata = download_link_page.results
+
+    # Follow the link to download the movie
+    download_movie = Download(
+        download_link_metadata.links[0]
+    )
+
+    print(
+        "Downloading : '" + movie.title + "' of size " + download_link_metadata.size
+    )
+
+    # Dowload the movie using save method
+    saved_to = download_movie.save(
+        download_link_metadata.filename,
+        # To silence progressbar & any other stdout:
+        # progress_bar = False,
+        # quiet = True
+    )
+
+    print(
+        saved_to
+    )
+```
+
+##### Using Auto
+
+```python
+from fzmovies_api import Auto
+from fzmovies_api.filters import RecentlyReleasedFilter
+
+start = Auto(
+    query=RecentlyReleasedFilter(
+        category="Hollywood"
+    )
+)
+
+start.run()
+```
+
+
+</details>
+
+### CLI
+
+- Basic case yet very handy
+
+   ```sh
+   $ python -m fzmovies_api download <QUERY>
+   # e.g python -m fzmovies_api download "Thor - Love and Thunder"
+   ```
+
+> [!TIP]
+> Shorthand for `python -m fzmovies_api` is `fzmovies`
+
+   `$ fzmovies download --help`
+
+```
+Usage: python -m fzmovies_api download [OPTIONS] QUERY
+
+  Perform search and download first movie in the search results
+
+Options:
+  -s, --searchby [Name|Director|Starcast]
+                                  Query search-by filter - Name
+  -c, --category [All|Bollywood|Hollywood|DHollywood]
+                                  Query movie category - All
+  -q, --quality [480p|720p]       Movie file download quality - 720p
+  -o, --output TEXT               Filename for saving the movie contents to
+  -d, --directory TEXT            Directory for saving the movie contents -
+                                  pwd
+  -z, --chunk-size INTEGER        Chunk_size for downloading files in KB - 512
+  -r, --resume                    Resume downloading incomplete files - False
+  -q, --quiet                     Not to stdout anything - False
+  -y, --yes                       Okay to all prompts - False
+  --help                          Show this message and exit.
+
+```
+
+> [!NOTE]
+> **fzmovies_api** provides a lot more than what you've just gone through here. Documenting isn't my thing, but I will try to update it as time goes by. Additionally, I cannot document this any better than the code itself; therefore, consider going through it.
 
 ## Disclaimer
 
