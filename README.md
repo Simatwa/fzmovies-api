@@ -9,7 +9,7 @@
 <a href="https://github.com/Simatwa/fzmovies-api/releases"><img src="https://img.shields.io/github/release-date/Simatwa/fzmovies-api?label=Release date&logo=github" alt="release date"></img></a>
 <a href="https://github.com/psf/black"><img alt="Black" src="https://img.shields.io/badge/code%20style-black-000000.svg"/></a>
 <a href="https://github.com/Simatwa/fzmovies-api/actions/workflows/python-publish.yml"><img src="https://github.com/Simatwa/fzmovies-api/actions/workflows/python-publish.yml/badge.svg" alt="Python-publish"/></a>
-<a href="https://pepy.tech/project/livescore-api"><img src="https://static.pepy.tech/personalized-badge/fzmovies-api?period=total&units=international_system&left_color=grey&right_color=blue&left_text=Downloads" alt="Downloads"></a>
+<a href="https://pepy.tech/project/fzmovies-api"><img src="https://static.pepy.tech/personalized-badge/fzmovies-api?period=total&units=international_system&left_color=grey&right_color=blue&left_text=Downloads" alt="Downloads"></a>
 <a href="https://github.com/Simatwa/fzmovies-api/releases/latest"><img src="https://img.shields.io/github/downloads/Simatwa/fzmovies-api/total?label=Asset%20Downloads&color=success" alt="Downloads"></img></a>
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com/Simatwa/fzmovies-api"/></a>
 </p>
