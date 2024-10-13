@@ -44,7 +44,7 @@ def fzmovies():
 @click.option(
     "-o",
     "--output",
-    help="Filename for saving the movie contents to",
+    help="Filename under which to save the movie contents",
 )
 @click.option(
     "-d",
@@ -55,7 +55,7 @@ def fzmovies():
 @click.option(
     "-z",
     "--chunk-size",
-    help="Chunk_size for downloading files in KB - 512",
+    help="Chunk_size for downloading movie files in KB - 512",
     default=512,
     type=click.INT,
 )
