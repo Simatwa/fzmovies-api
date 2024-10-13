@@ -195,7 +195,7 @@ def questions_and_answers_handler(contents: str) -> dict[str, str]:
     form dictionary.
 
     Returns:
-        dict[str, str]: Release formats and their description.
+        dict[str, str]: Question and their corresponding answers.
     """
     soup = utils.souper(contents)
     formats_soup = soup.find_all("div", {"class": "question"})
