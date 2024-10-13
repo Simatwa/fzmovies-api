@@ -6,7 +6,6 @@ INSTALL_REQUIRE = [
     "requests[socks]>=2.32.3",
     "bs4==0.0.1",
     "pydantic==2.9.2",
-    "colorama==0.4.6",
     "tqdm==4.66.3",
     "brotli==1.1.0",
 ]
