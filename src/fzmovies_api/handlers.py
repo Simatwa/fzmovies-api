@@ -201,7 +201,7 @@ def questions_and_answers_handler(contents: str) -> dict[str, str]:
     formats_soup = soup.find_all("div", {"class": "question"})
     descriptions_soup = soup.find_all("div", {"class": "answer"})
     formats_list: list[str] = [
-        format.text.strip().split(" ")[1] for format in formats_soup
+        " ".join(format.text.strip().split(" ")[1:]) for format in formats_soup
     ]
     descriptions_list: list[str] = [
         description.text.strip() for description in descriptions_soup
