@@ -2,12 +2,12 @@ import click
 import rich
 from os import getcwd
 from sys import exit
-from fzmovies_api import __version__
+from fzmovies_api import __repo__, __version__
 from fzmovies_api.hunter import Index
 from fzmovies_api.utils import file_index_quality_map
 
 
-@click.group(epilog="This script has no any official relation with fzmovies.net")
+@click.group(epilog=f"Repository : {__repo__}")
 @click.version_option(
     version=__version__,
     package_name="fzmovies_api",
