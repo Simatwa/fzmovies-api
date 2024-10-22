@@ -211,6 +211,12 @@ class Search:
         type=click.Choice(movie_search_filters),
         metavar="[" + "|".join(movie_search_filters[:3]) + "|...]",
     )
+    @click.option(
+        "-o",
+        "--output",
+        help="Path to save the results in json format.",
+        type=click.Path(dir_okay=False, resolve_path=True, exists=False),
+    )
     @click.option("-v", "--value", help="Filter argument value if needed")
     @click.option(
         "-l",
@@ -219,7 +225,8 @@ class Search:
         help="Maximum number of movies to be listed - 1_000_000",
         default=1_000_000,
     )
-    def discover(query, by, category, filter, value, limit):
+    @click.option("-q", "--quiet", is_flag=True, help="Do not stdout formatted table.")
+    def discover(query, by, category, filter, output, value, limit, quiet):
         """Explore movies by query or filter"""
         from fzmovies_api import Search
         from fzmovies_api.filters import (
@@ -289,22 +296,47 @@ class Search:
         from rich.table import Table
 
         page_no = total = 0
+        results_cache: list[dict[str, str | int]] = []
+        search_str = f"{query or filter}{ '('+value+')' if value else ''}"
         for s in search.get_all_results(stream=True, limit=limit):
             page_no += 1
             awesome_table = Table(
                 show_lines=True,
-                title=f"Search {query or filter}{ '('+value+')' if value else ''} (Page. {page_no})",
+                title=f"Search {search_str} (Page. {page_no})",
             )
             awesome_table.add_column("Index", justify="center", style="yellow")
             awesome_table.add_column("Title", justify="left", style="cyan")
             awesome_table.add_column("Year", justify="left", style="cyan")
             awesome_table.add_column("Description", justify="left", style="cyan")
             for movie in s.movies:
+                if output:
+                    results_cache.append(
+                        dict(title=movie.title, year=movie.year, about=movie.about)
+                    )
                 total += 1
                 awesome_table.add_row(
                     str(total), movie.title, str(movie.year), movie.about
                 )
-            rich.print(awesome_table)
+            if not quiet:
+                rich.print(awesome_table)
+
+        if output and results_cache:
+            from json import dump
+
+            if not str(output).endswith(".json"):
+                output = str(output) + ".json"
+
+            with open(output, "w") as fh:
+                dump(
+                    dict(
+                        search=search_str,
+                        filter=dict(name=filter, value=value),
+                        total=len(results_cache),
+                        movies=results_cache,
+                    ),
+                    fh,
+                    indent=4,
+                )
 
 
 def main():
