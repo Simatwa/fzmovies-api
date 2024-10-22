@@ -73,6 +73,9 @@ def fzmovies():
 @click.option(
     "-r", "--resume", is_flag=True, help="Resume downloading incomplete files - False"
 )
+@click.option(
+    "-S", "--simple", is_flag=True, help="Show percentage and bar only in progressbar"
+)
 @click.option("-q", "--quiet", is_flag=True, help="Not to stdout anything - False")
 @click.option("-y", "--yes", is_flag=True, help="Okay to all prompts - False")
 def download(
@@ -83,9 +86,10 @@ def download(
     output,
     directory,
     chunk_size,
-    resume,
     color,
     trace,
+    resume,
+    simple,
     quiet,
     yes,
 ):
@@ -111,6 +115,7 @@ def download(
         progress_bar=quiet == False,
         leave=trace,
         colour=color,
+        simple=simple,
     )
 
 
