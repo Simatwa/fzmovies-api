@@ -60,7 +60,19 @@ def fzmovies():
     type=click.INT,
 )
 @click.option(
+    "-C",
+    "--color",
+    help="Progressbar color - cyan",
+    default="cyan",
+)
+@click.option(
     "-r", "--resume", is_flag=True, help="Resume downloading incomplete files - False"
+)
+@click.option(
+    "-n",
+    "--no-trace",
+    is_flag=True,
+    help="Do not keep traces of the progressbar upon completion - False",
 )
 @click.option("-q", "--quiet", is_flag=True, help="Not to stdout anything - False")
 @click.option("-y", "--yes", is_flag=True, help="Okay to all prompts - False")
@@ -73,6 +85,8 @@ def download(
     directory,
     chunk_size,
     resume,
+    color,
+    no_trace,
     quiet,
     yes,
 ):
@@ -96,6 +110,8 @@ def download(
         resume=resume,
         quiet=quiet,
         progress_bar=quiet == False,
+        leave=no_trace,
+        colour=color,
     )
 
 
