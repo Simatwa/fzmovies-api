@@ -308,9 +308,7 @@ class Download:
             hunter.session.headers.update(
                 {"Range": f"bytes={current_downloaded_size}-"}
             )
-            current_downloaded_size_in_mb = round(
-                current_downloaded_size / 1000000, 2
-            )  # convert to mb
+            current_downloaded_size_in_mb = current_downloaded_size / 1000000
 
         default_content_length = 0
 
