@@ -6,6 +6,18 @@ from fzmovies_api import __repo__, __version__
 from fzmovies_api.hunter import Index
 from fzmovies_api.utils import file_index_quality_map
 
+movie_search_filters: tuple[str] = (
+    "IMDBTop250",
+    "Oscars",
+    "RecentlyPublished",
+    "RecentlyReleased",
+    "AlphabeticalOrder",
+    "MovieGenre",
+    "ReleaseYear",
+    "MovieTag",
+    "MostDownloaded",
+)
+
 
 @click.group(epilog=f"Repository : {__repo__}")
 @click.version_option(
@@ -172,10 +184,134 @@ class Support_:
         rich.print(awesome_table)
 
 
+class Search:
+    """Discover movies"""
+
+    @staticmethod
+    @click.command()
+    @click.argument("query", required=False)
+    @click.option(
+        "-b",
+        "--by",
+        help="Search category - Name",
+        type=click.Choice(["Name", "Director", "Starcast"]),
+        default="Name",
+    )
+    @click.option(
+        "-c",
+        "--category",
+        help="Search category - All",
+        type=click.Choice(["All", "Bollywood", "Hollywood", "DHollywood"]),
+        default="All",
+    )
+    @click.option(
+        "-f",
+        "--filter",
+        help="Movie search filter name",
+        type=click.Choice(movie_search_filters),
+        metavar="[" + "|".join(movie_search_filters[:3]) + "|...]",
+    )
+    @click.option("-v", "--value", help="Filter argument value if needed")
+    @click.option(
+        "-l",
+        "--limit",
+        type=click.INT,
+        help="Maximum number of movies to be listed - 1_000_000",
+        default=1_000_000,
+    )
+    def discover(query, by, category, filter, value, limit):
+        """Explore movies by query or filter"""
+        from fzmovies_api import Search
+        from fzmovies_api.filters import (
+            IMDBTop250Filter,
+            OscarsFilter,
+            RecentlyPublishedFilter,
+            RecentlyReleasedFilter,
+            AlphabeticalOrderFilter,
+            MovieGenreFilter,
+            ReleaseYearFilter,
+            MovieTagFilter,
+            MostDownloadedFilter,
+            fzmoviesFilterType,
+        )
+
+        filter_obj_map: dict[str, fzmoviesFilterType] = dict(
+            zip(
+                movie_search_filters,
+                (
+                    IMDBTop250Filter,
+                    OscarsFilter,
+                    RecentlyPublishedFilter,
+                    RecentlyReleasedFilter,
+                    AlphabeticalOrderFilter,
+                    MovieGenreFilter,
+                    ReleaseYearFilter,
+                    MovieTagFilter,
+                    MostDownloadedFilter,
+                ),
+            )
+        )
+
+        assert (
+            query != None and filter != None
+        ) == False, f"Only QUERY or FILTER is required. Not all of them."
+
+        if query:
+            assert value is None, (
+                f"Filter value like '{value}' is only required "
+                "when performing search using filters and not "
+                "bare query."
+            )
+            search = Search(query, by, category)
+        elif filter:
+            filter_obj = filter_obj_map[filter]
+            filter_obj_kwargs = {
+                "category": category,
+            }
+            if filter_obj.init_with_arg:
+                assert (
+                    value
+                ), f"Filter '{filter}' requires an argument. Use -v/--value to pass it."
+                if filter_obj.init_with_category:
+                    search = Search(filter_obj(value, category))
+                else:
+                    search = Search(filter_obj(value))
+            else:
+                if filter_obj.init_with_category:
+                    search = Search(filter_obj(category))
+                else:
+                    search = Search(filter_obj())
+        else:
+            raise Exception(
+                "A search query/filter is required. Check usage message for more info."
+            )
+        import rich
+        from rich.table import Table
+
+        page_no = total = 0
+        for s in search.get_all_results(stream=True, limit=limit):
+            page_no += 1
+            awesome_table = Table(
+                show_lines=True,
+                title=f"Search {query or filter}{ '('+value+')' if value else ''} (Page. {page_no})",
+            )
+            awesome_table.add_column("Index", justify="center", style="yellow")
+            awesome_table.add_column("Title", justify="left", style="cyan")
+            awesome_table.add_column("Year", justify="left", style="cyan")
+            awesome_table.add_column("Description", justify="left", style="cyan")
+            for movie in s.movies:
+                total += 1
+                awesome_table.add_row(
+                    str(total), movie.title, str(movie.year), movie.about
+                )
+            rich.print(awesome_table)
+
+
 def main():
     """Console entry point"""
     try:
         fzmovies.add_command(download)
+        fzmovies.add_command(Search.discover)
         EntryGroup.support.add_command(Support_.release_formats)
         EntryGroup.support.add_command(Support_.FAQs)
         fzmovies()

@@ -40,6 +40,12 @@ class Filter(ABC):
 class FilterBase(Filter):
     """Parent base class for Filter classes"""
 
+    init_with_category: bool = True
+    """Accepts category argument while initializing"""
+
+    init_with_arg: bool = True
+    """Accept special argument other than category"""
+
     def get_contents(self) -> str:
         """Fetch Html contents of the url
 
@@ -60,11 +66,16 @@ class FilterBase(Filter):
 class IMDBTop250Filter(FilterBase):
     """IMDB TOp 250 movies filter"""
 
+    init_with_arg = False
+    init_with_category = False
+
     url = "https://fzmovies.net/imdb250.php"
 
 
 class OscarsFilter(FilterBase):
     """Oscars Best filter"""
+
+    init_with_category = False
 
     categories: tuple[str] = (
         "Best Picture",
@@ -102,18 +113,22 @@ class OscarsFilter(FilterBase):
 class MostDownloadedFilter(FilterBase):
     """Most downloaded filter"""
 
+    init_with_arg = False
+
     def __init__(self, category: t.Literal["Bollywood", "Hollywood"] = "Hollywood"):
         """Initialize `MostDownloadedFilter`
 
         Args:
             category (t.Literal["Bollywood", "Hollywood"], optional): Movie category. Defaults to "Hollywood".
         """
-        assert_membership(category, category_id_map.keys(), "Category")
+        assert_membership(category, tuple(category_id_map.keys()), "Category")
         self.url = f"https://fzmovies.net/movieslist.php?catID={category_id_map[category]}&by=downloads"
 
 
 class RecentlyReleasedFilter(FilterBase):
     """Recently released movies filter"""
+
+    init_with_arg = False
 
     def __init__(self, category: t.Literal["Bollywood", "Hollywood"] = "Hollywood"):
         """Initialize `RecentlyReleasedFilter`
@@ -121,12 +136,14 @@ class RecentlyReleasedFilter(FilterBase):
         Args:
             category (t.Literal["Bollywood", "Hollywood"], optional): Movie category. Defaults to "Hollywood".
         """
-        assert_membership(category, category_id_map.keys(), "Category")
+        assert_membership(category, tuple(category_id_map.keys()), "Category")
         self.url = f"https://fzmovies.net/movieslist.php?catID={category_id_map[category]}&by=date"
 
 
 class RecentlyPublishedFilter(FilterBase):
     """Recently added movies"""
+
+    init_with_arg = False
 
     def __init__(self, category: t.Literal["Bollywood", "Hollywood"] = "Hollywood"):
         """Initialize `RecentlyPublishedFilter`
@@ -134,7 +151,7 @@ class RecentlyPublishedFilter(FilterBase):
         Args:
             category (t.Literal["Bollywood", "Hollywood"], optional): Movie category. Defaults to "Hollywood".
         """
-        assert_membership(category, category_id_map.keys(), "Category")
+        assert_membership(category, tuple(category_id_map.keys()), "Category")
         self.url = f"https://fzmovies.net/movieslist.php?catID={category_id_map[category]}&by=latest"
 
 
@@ -237,7 +254,7 @@ class MovieGenreFilter(FilterBase):
             category (t.Literal["Bollywood", "Hollywood"], optional): Movie category. Defaults to "Hollywood".
         """
         assert_membership(name, self.available_genres, "Genre")
-        assert_membership(category, category_id_map.keys())
+        assert_membership(category, tuple(category_id_map.keys()))
         self.url = f"https://fzmovies.net/genre.php?catID={category_id_map[category]}&genre={name}"
 
 
@@ -255,13 +272,15 @@ class ReleaseYearFilter(FilterBase):
             year (int, optional): Movie releasal year. Defaults to `datetime.now().year`
             category (t.Literal["Bollywood", "Hollywood"], optional): Movie category. Defaults to "Hollywood".
         """
-        assert isinstance(year, int), "Year must be an Integer"
-        assert_membership(category, category_id_map.keys(), "Category")
+        assert isinstance(int(year), int), "Year must be an Integer"
+        assert_membership(category, tuple(category_id_map.keys()), "Category")
         self.url = f"https://fzmovies.net/year.php?year={year}&catID={category_id_map[category]}"
 
 
 class MovieTagFilter(FilterBase):
     """Movie tag filter"""
+
+    init_with_category = False
 
     def __init__(self, tag: str):
         """Initializes `MovieTagFilter`
@@ -275,6 +294,8 @@ class MovieTagFilter(FilterBase):
 
 class SearchNavigatorFilter(FilterBase):
     """Navigates movie-listing-page"""
+
+    init_with_category = False
 
     targets = ["first", "previous", "next", "last"]
 
