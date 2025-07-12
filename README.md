@@ -11,7 +11,9 @@
 <a href="https://github.com/Simatwa/fzmovies-api/actions/workflows/python-publish.yml"><img src="https://github.com/Simatwa/fzmovies-api/actions/workflows/python-publish.yml/badge.svg" alt="Python-publish"/></a>
 <a href="https://pepy.tech/project/fzmovies-api"><img src="https://static.pepy.tech/personalized-badge/fzmovies-api?period=total&units=international_system&left_color=grey&right_color=blue&left_text=Downloads" alt="Downloads"></a>
 <a href="https://github.com/Simatwa/fzmovies-api/releases/latest"><img src="https://img.shields.io/github/downloads/Simatwa/fzmovies-api/total?label=Asset%20Downloads&color=success" alt="Downloads"></img></a>
+<!--
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com/Simatwa/fzmovies-api"/></a>
+-->
 </p>
 
 > Unofficial Python API/SDK for fzmovies.net
