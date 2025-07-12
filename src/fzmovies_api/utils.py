@@ -8,7 +8,9 @@ from bs4 import BeautifulSoup as bts
 from os import path
 import typing as t
 
-site_url = "https://fzmovies.net/"
+mirror_hosts = ("https://fzmovies.live", "https://fzmovies.host")
+
+site_url = mirror_hosts[0]
 
 
 file_index_quality_map = {"480p": 0, "720p": 1}

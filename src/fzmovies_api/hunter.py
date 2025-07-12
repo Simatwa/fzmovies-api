@@ -35,8 +35,8 @@ class Index:
     Load index page & perform search
     """
 
-    url = "https://fzmovies.net"
-    search_url = "https://fzmovies.net/csearch.php"
+    url = utils.site_url
+    search_url = utils.get_absolute_url("/csearch.php")
     searchby_options = ["Name", "Director", "Starcast"]
     category_options = ["All", "Bollywood", "Hollywood", "DHollywood"]
     session_is_initialized = False
@@ -107,8 +107,8 @@ class Metadata:
     session_expired_pattern = r".*Your download keys have expired.*"
 
     question_and_answers_url_map = {
-        "formats": "https://fzmovies.net/mquality.php",
-        "faq": "https://fzmovies.net/support.php",
+        "formats": utils.get_absolute_url("/mquality.php"),
+        "faq": utils.get_absolute_url("/support.php"),
     }
 
     @classmethod

@@ -17,12 +17,12 @@ import typing as t
 
 class MovieInSearch(BaseModel):
     """Listed results of query
-    - `url` : Link to the movie page
-    - `title` : Movie title
-    - `year` : Movie release year
-    - `distribution` : Movie distribution name.
-    - `about` : Movie plot
-    - `cover_photo` : Link to movie's release photo
+    `url` : Link to the movie page
+    `title` : Movie title
+    `year` : Movie release year
+    `distribution` : Movie distribution name.
+    `about` : Movie plot
+    `cover_photo` : Link to movie's release photo
     """
 
     url: HttpUrl
@@ -38,11 +38,11 @@ class MovieInSearch(BaseModel):
 
 class SearchResults(BaseModel):
     """Joined listed results of query
-    - `movies` : List of `MovieInSearch`
-    - `first_page` : Link to the first page of the results.
-    - `previous_page` : Link to the previuos page of the results.
-    - `next_page` : Link to next page of the results.
-    - `last_page` : Link to the last page of the results.
+    `movies` : List of `MovieInSearch`
+    `first_page` : Link to the first page of the results.
+    `previous_page` : Link to the previuos page of the results.
+    `next_page` : Link to next page of the results.
+    `last_page` : Link to the last page of the results.
     """
 
     movies: list[MovieInSearch]
@@ -71,11 +71,11 @@ class SearchResults(BaseModel):
 
 class FileMetadata(BaseModel):
     """Movie file
-    - `title` : ..
-    - `url` : Link to the movie file.
-    - `size` : Size of the movie file.
-    - `hits` : File download count
-    - `mediainfo` : ..
+    `title` : ..
+    `url` : Link to the movie file.
+    `size` : Size of the movie file.
+    `hits` : File download count
+    `mediainfo` : ..
     """
 
     title: str
@@ -91,9 +91,9 @@ class FileMetadata(BaseModel):
 
 class RecommendedMovie(BaseModel):
     """Movies recommended by site
-    - `title` : Recommed movie title
-    - `url` : Link to the movie page
-    - `cover_photo` : Link to movie's release photo.
+    `title` : Recommed movie title
+    `url` : Link to the movie page
+    `cover_photo` : Link to movie's release photo.
     """
 
     title: str
@@ -106,9 +106,9 @@ class RecommendedMovie(BaseModel):
 
 class MovieFiles(BaseModel):
     """Collection of movie files
-    - `files` : List of `FileMetadata`
-    - `trailer` : YouTube link to movie's trailer.
-    - `recommended` : List of `RecommendedMovie`
+    `files` : List of `FileMetadata`
+    `trailer` : YouTube link to movie's trailer.
+    `recommended` : List of `RecommendedMovie`
     """
 
     files: list[FileMetadata]
@@ -121,8 +121,8 @@ class MovieFiles(BaseModel):
 
 class DownloadLink(BaseModel):
     """Link to download the movie
-    - `url` : Download link
-    - `connections` : Download connections
+    `url` : Download link
+    `connections` : Download connections
     """
 
     url: HttpUrl
@@ -134,10 +134,10 @@ class DownloadLink(BaseModel):
 
 class DownloadMovie(BaseModel):
     """Download metadata
-    - `filename` : Movie filename
-    - `links` : List of `DownloadLink`
-    - `size` : Movie file size.
-    - `info` : In-download page message.
+    `filename` : Movie filename
+    `links` : List of `DownloadLink`
+    `size` : Movie file size.
+    `info` : In-download page message.
     """
 
     filename: str

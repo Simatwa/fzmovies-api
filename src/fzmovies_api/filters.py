@@ -8,7 +8,7 @@ from fzmovies_api.hunter import Metadata
 import fzmovies_api.models as models
 import fzmovies_api.errors as errors
 from fzmovies_api.handlers import search_handler
-from fzmovies_api.utils import category_id_map, assert_membership
+from fzmovies_api.utils import category_id_map, assert_membership, get_absolute_url
 from datetime import datetime
 import typing as t
 
@@ -26,7 +26,7 @@ class Filter(ABC):
         Returns:
             str: html contents
         """
-        pass
+        raise NotImplementedError("This method needs to be implemented in subclass.")
 
     @abstractmethod
     def get_results(self) -> models.SearchResults:
@@ -35,6 +35,7 @@ class Filter(ABC):
         Returns:
             models.SearchResults: Results
         """
+        raise NotImplementedError("This method needs to be implemented in subclass.")
 
 
 class FilterBase(Filter):
@@ -69,7 +70,7 @@ class IMDBTop250Filter(FilterBase):
     init_with_arg = False
     init_with_category = False
 
-    url = "https://fzmovies.net/imdb250.php"
+    url = get_absolute_url("/imdb250.php")
 
 
 class OscarsFilter(FilterBase):
@@ -107,7 +108,7 @@ class OscarsFilter(FilterBase):
               optional): Oscars' award category. Defaults to "Best Picture".
         """
         assert_membership(category, self.categories)
-        self.url = f"https://fzmovies.net/oscars.php?category=Oscars {category}"
+        self.url = get_absolute_url(f"/oscars.php?category=Oscars {category}")
 
 
 class MostDownloadedFilter(FilterBase):
@@ -122,7 +123,9 @@ class MostDownloadedFilter(FilterBase):
             category (t.Literal["Bollywood", "Hollywood"], optional): Movie category. Defaults to "Hollywood".
         """
         assert_membership(category, tuple(category_id_map.keys()), "Category")
-        self.url = f"https://fzmovies.net/movieslist.php?catID={category_id_map[category]}&by=downloads"
+        self.url = get_absolute_url(
+            f"/movieslist.php?catID={category_id_map[category]}&by=downloads"
+        )
 
 
 class RecentlyReleasedFilter(FilterBase):
@@ -137,7 +140,9 @@ class RecentlyReleasedFilter(FilterBase):
             category (t.Literal["Bollywood", "Hollywood"], optional): Movie category. Defaults to "Hollywood".
         """
         assert_membership(category, tuple(category_id_map.keys()), "Category")
-        self.url = f"https://fzmovies.net/movieslist.php?catID={category_id_map[category]}&by=date"
+        self.url = get_absolute_url(
+            f"/movieslist.php?catID={category_id_map[category]}&by=date"
+        )
 
 
 class RecentlyPublishedFilter(FilterBase):
@@ -152,7 +157,9 @@ class RecentlyPublishedFilter(FilterBase):
             category (t.Literal["Bollywood", "Hollywood"], optional): Movie category. Defaults to "Hollywood".
         """
         assert_membership(category, tuple(category_id_map.keys()), "Category")
-        self.url = f"https://fzmovies.net/movieslist.php?catID={category_id_map[category]}&by=latest"
+        self.url = get_absolute_url(
+            f"/movieslist.php?catID={category_id_map[category]}&by=latest"
+        )
 
 
 class AlphabeticalOrderFilter(FilterBase):
@@ -185,7 +192,9 @@ class AlphabeticalOrderFilter(FilterBase):
         """
         assert_membership(range, self.available_ranges)
         assert_membership(category, category_id_map)
-        self.url = f"https://fzmovies.net/alpha.php?range={range}&catID={category_id_map[category]}"
+        self.url = get_absolute_url(
+            f"/alpha.php?range={range}&catID={category_id_map[category]}"
+        )
 
 
 class MovieGenreFilter(FilterBase):
@@ -255,7 +264,9 @@ class MovieGenreFilter(FilterBase):
         """
         assert_membership(name, self.available_genres, "Genre")
         assert_membership(category, tuple(category_id_map.keys()))
-        self.url = f"https://fzmovies.net/genre.php?catID={category_id_map[category]}&genre={name}"
+        self.url = get_absolute_url(
+            f"/genre.php?catID={category_id_map[category]}&genre={name}"
+        )
 
 
 class ReleaseYearFilter(FilterBase):
@@ -274,7 +285,9 @@ class ReleaseYearFilter(FilterBase):
         """
         assert isinstance(int(year), int), "Year must be an Integer"
         assert_membership(category, tuple(category_id_map.keys()), "Category")
-        self.url = f"https://fzmovies.net/year.php?year={year}&catID={category_id_map[category]}"
+        self.url = get_absolute_url(
+            f"/year.php?year={year}&catID={category_id_map[category]}"
+        )
 
 
 class MovieTagFilter(FilterBase):
@@ -289,7 +302,7 @@ class MovieTagFilter(FilterBase):
             tag (str): Tag name
         """
         assert isinstance(tag, str), f"Tag must be of {str} not {type(tag)}"
-        self.url = f"https://fzmovies.net/movietags.php?tag={tag}"
+        self.url = get_absolute_url(f"/movietags.php?tag={tag}")
 
 
 class SearchNavigatorFilter(FilterBase):
