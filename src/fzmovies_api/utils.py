@@ -5,7 +5,7 @@ as well as storing common variables across the package
 """
 
 from bs4 import BeautifulSoup as bts
-from os import path
+from urllib.parse import urljoin
 import typing as t
 
 mirror_hosts = ("https://fzmovies.live", "https://fzmovies.host")
@@ -28,9 +28,7 @@ def souper(contents: str) -> bts:
 
 def get_absolute_url(relative_url: str) -> str:
     """Makes absolute url from relative url"""
-    if relative_url.startswith("/"):
-        relative_url = relative_url[1:]
-    return path.join(site_url, relative_url)
+    return urljoin(site_url, relative_url)
 
 
 def assert_membership(value: t.Any, elements: t.Iterable, identity="Value"):
