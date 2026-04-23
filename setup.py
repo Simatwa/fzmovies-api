@@ -1,6 +1,4 @@
-from setuptools import setup
-
-from setuptools import find_packages
+from setuptools import find_packages, setup
 
 INSTALL_REQUIRE = [
     "requests[socks]>=2.32.3",
@@ -47,7 +45,7 @@ setup(
         "movies",
         "fzmovies",
     ],
-    long_description=open("README.md", encoding="utf-8").read(),
+    long_description=open("README.md", encoding="utf-8").read(),  # noqa: SIM115
     long_description_content_type="text/markdown",
     classifiers=[
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",

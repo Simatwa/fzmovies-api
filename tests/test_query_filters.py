@@ -1,7 +1,8 @@
 import unittest
-from fzmovies_api.models import SearchResults
-import fzmovies_api.filters as f
 from unittest import TestCase
+
+import fzmovies_api.filters as f
+from fzmovies_api.models import SearchResults
 
 
 class FiltersTestBase:

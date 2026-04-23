@@ -3,20 +3,18 @@ This module contains exception classes
 that are used across fzmovies_api
 """
 
+class FzmoviesAPIException(Exception):
+    """Base class for package exceptions"""
 
-class LoadIndexError(Exception):
+class LoadIndexError(FzmoviesAPIException):
     """fzmovies.net failed to load successfully"""
 
-    pass
 
-
-class ZeroSearchResults(Exception):
+class ZeroSearchResults(FzmoviesAPIException):
     """Search query returned no results"""
 
-    pass
 
-
-class SessionExpired(Exception):
+class SessionExpired(FzmoviesAPIException):
     """Session expired and perhaps previous request was never
     made using startup session at <fzmovies_api.hunter.Index>
     """
@@ -32,7 +30,9 @@ class SessionExpired(Exception):
         self.redirect_to = redirect_to
 
 
-class TargetPageURLNotFound(Exception):
+class TargetPageURLNotFound(FzmoviesAPIException):
     """The page to navigate to has `null` as its url"""
 
-    pass
+
+class DownloadError(FzmoviesAPIException):
+    """failed to download file for some reasons"""

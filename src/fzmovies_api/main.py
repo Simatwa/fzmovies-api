@@ -12,16 +12,15 @@ It achieves this through 4 classes
 - `Auto` : Ultimately download items of index 0.
 """
 
-import fzmovies_api.hunter as hunter
-import fzmovies_api.handlers as handler
-import fzmovies_api.models as models
-import fzmovies_api.utils as utils
 import typing as t
-from tqdm import tqdm
-from os import path, getcwd
-from fzmovies_api import logger
+from os import getcwd, path
 from pathlib import Path
-from fzmovies_api.filters import fzmoviesFilterType, Filter, SearchNavigatorFilter
+
+from tqdm import tqdm
+
+import fzmovies_api.handlers as handler
+from fzmovies_api import errors, hunter, logger, models, utils
+from fzmovies_api.filters import Filter, SearchNavigatorFilter, fzmoviesFilterType
 
 
 class Search(hunter.Index):
@@ -83,13 +82,13 @@ class Search(hunter.Index):
         return self.get_all_results()
 
     def get_all_results(
-        self, stream: bool = False, limit: int = 1000000
+        self, stream: bool = False, limit: int = 1_000_000
     ) -> models.SearchResults | t.Generator[models.SearchResults, None, None]:
         """Fetch all search results
 
         Args:
             stream (bool, optional): Yield results. Defaults to False.
-            limit (int, optional): Total movies not to exceed - `multiple of 20`. Defaults to 1000000.
+            limit (int, optional): Total movies not to exceed - `multiple of 20`. Defaults to 1_000_000.
 
         Returns:
             models.SearchResults | t.Generator[models.SearchResults, None, None]
@@ -97,12 +96,16 @@ class Search(hunter.Index):
 
         def for_stream(self, limit):
             total_movies_search = 0
+
+            cursor = self
+
             while True:
-                r: models.SearchResults = self.results
+                r: models.SearchResults = cursor.results
                 total_movies_search += len(r.movies)
                 yield r
                 if r.next_page:
-                    self = self.next()
+                    cursor = cursor.next()
+
                 else:
                     break
 
@@ -307,9 +310,9 @@ class Download:
             assert path.exists(save_to), f"File not found in path - '{save_to}'"
             current_downloaded_size = path.getsize(save_to)
             # Set the headers to resume download from the last byte
-            hunter.session.headers.update(
-                {"Range": f"bytes={current_downloaded_size}-"}
-            )
+            hunter.session.headers.update({
+                "Range": f"bytes={current_downloaded_size}-"
+            })
             current_downloaded_size_in_mb = current_downloaded_size / 1000000
 
         default_content_length = 0
@@ -323,14 +326,14 @@ class Download:
                     f"Download completed for the file in path - '{save_to}'"
                 )
             else:
-                raise Exception(
+                raise errors.DownloadError(
                     f"Cannot download file of content-length {size_in_bytes} bytes"
                 )
 
         if resume:
-            assert (
-                size_in_bytes != current_downloaded_size
-            ), f"Download completed for the file in path - '{save_to}'"
+            assert size_in_bytes != current_downloaded_size, (
+                f"Download completed for the file in path - '{save_to}'"
+            )
 
         size_in_mb = (size_in_bytes / 1_000_000) + current_downloaded_size_in_mb
         chunk_size_in_bytes = chunk_size * 1_000
@@ -343,7 +346,7 @@ class Download:
                 desc="Downloading",
                 total=round(size_in_mb, 1),
                 bar_format=(
-                    "{l_bar}{bar} | %(size)s MB" % (dict(size=round(size_in_mb, 1)))
+                    "{l_bar}{bar} | %(size)s MB" % ({"size": round(size_in_mb, 1)})  # noqa: UP031
                     if simple
                     else "{l_bar}{bar}{r_bar}"
                 ),

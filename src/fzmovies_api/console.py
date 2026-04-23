@@ -1,7 +1,9 @@
-import click
-import rich
 from os import getcwd
 from sys import exit
+
+import click
+import rich
+
 from fzmovies_api import __repo__, __version__
 from fzmovies_api.hunter import Index
 from fzmovies_api.utils import file_index_quality_map
@@ -27,7 +29,6 @@ movie_search_filters: tuple[str] = (
 )
 def fzmovies():
     """Download movies like a pro from fzmovies.net"""
-    pass
 
 
 @click.command()
@@ -136,8 +137,6 @@ class EntryGroup:
     @fzmovies.group()
     def support():
         """Provides helpful info such as FAQs and release formats"""
-        pass
-
 
 class Support_:
     """Contains support info such as FAQs and release formats"""
@@ -146,8 +145,9 @@ class Support_:
     @click.command()
     def release_formats():
         """Show movie release formats and their descriptions"""
-        from fzmovies_api import Support
         from rich.table import Table
+
+        from fzmovies_api import Support
 
         awesome_table = Table(show_lines=True, title="Movie Release Formats".title())
 
@@ -166,8 +166,9 @@ class Support_:
     @click.command()
     def FAQs():
         """Show FAQs and their answers"""
-        from fzmovies_api import Support
         from rich.table import Table
+
+        from fzmovies_api import Support
 
         awesome_table = Table(show_lines=True, title="FAQs and Answers".title())
 
@@ -230,15 +231,15 @@ class Search:
         """Explore movies by query or filter"""
         from fzmovies_api import Search
         from fzmovies_api.filters import (
+            AlphabeticalOrderFilter,
             IMDBTop250Filter,
+            MostDownloadedFilter,
+            MovieGenreFilter,
+            MovieTagFilter,
             OscarsFilter,
             RecentlyPublishedFilter,
             RecentlyReleasedFilter,
-            AlphabeticalOrderFilter,
-            MovieGenreFilter,
             ReleaseYearFilter,
-            MovieTagFilter,
-            MostDownloadedFilter,
             fzmoviesFilterType,
         )
 
@@ -261,7 +262,7 @@ class Search:
 
         assert (
             query != None and filter != None
-        ) == False, f"Only QUERY or FILTER is required. Not all of them."
+        ) == False, "Only QUERY or FILTER is required. Not all of them."
 
         if query:
             assert value is None, (
@@ -272,9 +273,7 @@ class Search:
             search = Search(query, by, category)
         elif filter:
             filter_obj = filter_obj_map[filter]
-            filter_obj_kwargs = {
-                "category": category,
-            }
+
             if filter_obj.init_with_arg:
                 assert (
                     value
@@ -289,7 +288,7 @@ class Search:
                 else:
                     search = Search(filter_obj())
         else:
-            raise Exception(
+            raise RuntimeError(
                 "A search query/filter is required. Check usage message for more info."
             )
         import rich
@@ -299,7 +298,7 @@ class Search:
         results_cache: list[dict[str, str | int]] = []
         search_str = f"{query or filter}{ '('+value+')' if value else ''}"
         for s in search.get_all_results(stream=True, limit=limit):
-            page_no += 1
+            page_no += 1  # noqa: SIM113
             awesome_table = Table(
                 show_lines=True,
                 title=f"Search {search_str} (Page. {page_no})",
@@ -311,7 +310,7 @@ class Search:
             for movie in s.movies:
                 if output:
                     results_cache.append(
-                        dict(title=movie.title, year=movie.year, about=movie.about)
+                        {"title": movie.title, "year": movie.year, "about": movie.about}
                     )
                 total += 1
                 awesome_table.add_row(
@@ -328,12 +327,12 @@ class Search:
 
             with open(output, "w") as fh:
                 dump(
-                    dict(
-                        search=search_str,
-                        filter=dict(name=filter, value=value),
-                        total=len(results_cache),
-                        movies=results_cache,
-                    ),
+                    {
+                        "search": search_str,
+                        "filter": {"name": filter, "value": value},
+                        "total": len(results_cache),
+                        "movies": results_cache,
+                    },
                     fh,
                     indent=4,
                 )
@@ -347,7 +346,8 @@ def main():
         EntryGroup.support.add_command(Support_.release_formats)
         EntryGroup.support.add_command(Support_.FAQs)
         fzmovies()
-    except Exception as e:
+
+    except Exception as e:  # noqa: BLE001
         print(f"> Error : {e.args[1] if e.args and len(e.args)>1 else e}")
         exit(1)
 

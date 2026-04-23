@@ -1,12 +1,11 @@
 """
-Extracts key data from raw html contents 
+Extracts key data from raw html contents
 and use them to generate models
 """
 
 import re
-import fzmovies_api.models as models
-import fzmovies_api.utils as utils
-import fzmovies_api.errors as errors
+
+from fzmovies_api import errors, models, utils
 
 
 def search_handler(contents: str) -> models.SearchResults:
@@ -42,19 +41,17 @@ def search_handler(contents: str) -> models.SearchResults:
         distribution = re.sub(r"\(|\)", "", distribution_soup.text.strip())
         about = about_soup.text.strip()
         cover_photo = search_result.find("img").get("src")
-        search_result_items.append(
-            dict(
-                url=utils.get_absolute_url(url),
-                title=title,
-                year=year,
-                distribution=distribution,
-                about=about,
-                cover_photo=utils.get_absolute_url(cover_photo),
-            )
-        )
+        search_result_items.append({
+            "url": utils.get_absolute_url(url),
+            "title": title,
+            "year": year,
+            "distribution": distribution,
+            "about": about,
+            "cover_photo": utils.get_absolute_url(cover_photo),
+        })
 
     pages = soup.find("div", {"class": "mainbox2"})
-    first_page = previous_page = next_page = last_page = last_page = None
+    first_page = previous_page = next_page = last_page = None
     if pages:
         for nav in pages.find_all("a"):
             link = nav.get("href")
@@ -95,13 +92,11 @@ def movie_handler(contents: str) -> models.MovieFiles:
         title = movie.get("alt")
         url = movie.get("href")
         cover_photo = movie.find("img").get("src")
-        recommended_movies.append(
-            dict(
-                title=title,
-                url=utils.get_absolute_url(url),
-                cover_photo=utils.get_absolute_url(cover_photo),
-            )
-        )
+        recommended_movies.append({
+            "title": title,
+            "url": utils.get_absolute_url(url),
+            "cover_photo": utils.get_absolute_url(cover_photo),
+        })
 
     for movie_file in soup.find_all("ul", {"class": "moviesfiles"}):
         urls = movie_file.find_all("a")
@@ -120,16 +115,14 @@ def movie_handler(contents: str) -> models.MovieFiles:
             ss = urls[2].get("href")
         else:
             ss = None
-        movie_files.append(
-            dict(
-                title=title,
-                url=utils.get_absolute_url(url),
-                size=size,
-                hits=hits,
-                mediainfo=utils.get_absolute_url(mediainfo),
-                ss=utils.get_absolute_url(ss) if ss else None,
-            )
-        )
+        movie_files.append({
+            "title": title,
+            "url": utils.get_absolute_url(url),
+            "size": size,
+            "hits": hits,
+            "mediainfo": utils.get_absolute_url(mediainfo),
+            "ss": utils.get_absolute_url(ss) if ss else None,
+        })
     return models.MovieFiles(
         files=movie_files, trailer=trailer, recommended=recommended_movies
     )
@@ -174,9 +167,10 @@ def download_links_handler(contents: str) -> models.DownloadMovie:
         connections = re.sub(r"\(|\)", "", dlink.find("dcounter").text.strip()).split(
             " "
         )[0]
-        download_link_items.append(
-            dict(url=utils.get_absolute_url(url), connections=connections)
-        )
+        download_link_items.append({
+            "url": utils.get_absolute_url(url),
+            "connections": connections,
+        })
     return models.DownloadMovie(
         filename=filename, links=download_link_items, size=size, info=info
     )

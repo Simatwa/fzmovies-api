@@ -4,9 +4,10 @@ performing common and frequently required tasks
 as well as storing common variables across the package
 """
 
-from bs4 import BeautifulSoup as bts
-from urllib.parse import urljoin
 import typing as t
+from urllib.parse import urljoin
+
+from bs4 import BeautifulSoup as bts
 
 mirror_hosts = ("https://fzmovies.live", "https://fzmovies.host")
 

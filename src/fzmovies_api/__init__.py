@@ -1,14 +1,14 @@
 """
 This package does the Lord's work
 of automating the process of downloading a movie
-from fzmovies.net. 
+from fzmovies.live
 
 Right from performing `search` query down to downloading
 it in your desired quality.
 """
 
-from importlib import metadata
 import logging
+from importlib import metadata
 
 try:
     __version__ = metadata.version("fzmovies-api")
@@ -20,6 +20,6 @@ __repo__ = "https://github.com/Simatwa/fzmovie-api"
 
 logger = logging.getLogger(__name__)
 
-from fzmovies_api.main import Search, Navigate, DownloadLinks, Download, Auto, Support
+from fzmovies_api.main import Auto, Download, DownloadLinks, Navigate, Search, Support
 
-__all__ = ["Search", "Navigate", "DownloadLinks", "Download", "Auto", "Support"]
+__all__ = ["Auto", "Download", "DownloadLinks", "Navigate", "Search", "Support"]

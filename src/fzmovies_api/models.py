@@ -11,8 +11,8 @@ The models are not limited to:
 - Download links
 """
 
+
 from pydantic import BaseModel, HttpUrl
-import typing as t
 
 
 class MovieInSearch(BaseModel):
@@ -46,17 +46,17 @@ class SearchResults(BaseModel):
     """
 
     movies: list[MovieInSearch]
-    first_page: t.Union[HttpUrl, None] = None
-    previous_page: t.Union[HttpUrl, None] = None
-    next_page: t.Union[HttpUrl, None] = None
-    last_page: t.Union[HttpUrl, None] = None
+    first_page: HttpUrl | None = None
+    previous_page: HttpUrl | None = None
+    next_page: HttpUrl | None = None
+    last_page: HttpUrl | None = None
 
     def __str__(self):
         return f"<SearchResults movies=[{ ' | '.join([str(movie) for movie in self.movies]) }]>"
 
     def __add__(self, other: "SearchResults") -> "SearchResults":
         if not isinstance(other, SearchResults):
-            raise ValueError(
+            raise TypeError(
                 f"Operand must be an instance of {SearchResults} not {type(other)}"
             )
 
@@ -112,7 +112,7 @@ class MovieFiles(BaseModel):
     """
 
     files: list[FileMetadata]
-    trailer: t.Union[HttpUrl, None]
+    trailer: HttpUrl | None
     recommended: list[RecommendedMovie]
 
     def __str__(self):

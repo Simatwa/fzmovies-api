@@ -1,7 +1,8 @@
-import unittest, os
-from fzmovies_api import Search, Navigate, DownloadLinks, Download, Support
-import fzmovies_api.models as models
+import os
 import typing as t
+import unittest
+
+from fzmovies_api import Download, DownloadLinks, Navigate, Search, Support, models
 
 search_kwargs = {"query": "Jason Statham", "searchby": "Starcast"}
 

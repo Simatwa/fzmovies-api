@@ -3,14 +3,14 @@ This module contains search filters
 along with page navigation filters
 """
 
-from abc import ABC, abstractmethod
-from fzmovies_api.hunter import Metadata
-import fzmovies_api.models as models
-import fzmovies_api.errors as errors
-from fzmovies_api.handlers import search_handler
-from fzmovies_api.utils import category_id_map, assert_membership, get_absolute_url
-from datetime import datetime
 import typing as t
+from abc import ABC, abstractmethod
+from datetime import UTC, datetime
+
+from fzmovies_api import errors, models
+from fzmovies_api.handlers import search_handler
+from fzmovies_api.hunter import Metadata
+from fzmovies_api.utils import assert_membership, category_id_map, get_absolute_url
 
 
 class Filter(ABC):
@@ -274,15 +274,18 @@ class ReleaseYearFilter(FilterBase):
 
     def __init__(
         self,
-        year: int = int(datetime.now().year),
+        year: int | None=None,
         category: t.Literal["Bollywood", "Hollywood"] = "Hollywood",
     ):
         """Initialize `ReleaseYearFilter`
 
         Args:
-            year (int, optional): Movie releasal year. Defaults to `datetime.now().year`
+            year (int, optional): Movie releasal year. Defaults to `datetime.now(UTC).year`
             category (t.Literal["Bollywood", "Hollywood"], optional): Movie category. Defaults to "Hollywood".
         """
+        if year is None:
+            year = int(datetime.now(UTC).year)
+
         assert isinstance(int(year), int), "Year must be an Integer"
         assert_membership(category, tuple(category_id_map.keys()), "Category")
         self.url = get_absolute_url(
@@ -310,7 +313,7 @@ class SearchNavigatorFilter(FilterBase):
 
     init_with_category = False
 
-    targets = ["first", "previous", "next", "last"]
+    targets = ("first", "previous", "next", "last")
 
     def __init__(
         self,
@@ -341,7 +344,7 @@ class SearchNavigatorFilter(FilterBase):
             )
 
 
-fzmoviesFilterType = t.Union[
+fzmoviesFilterType = t.Union[  # noqa: UP007
     IMDBTop250Filter,
     OscarsFilter,
     RecentlyPublishedFilter,

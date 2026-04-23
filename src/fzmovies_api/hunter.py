@@ -1,6 +1,6 @@
 """
 This module does the ground-work of interacting
-with fzmovies.net in fetching the required resources 
+with fzmovies.net in fetching the required resources
 that revolves around:
 - Load index page
 - Perform search
@@ -10,10 +10,11 @@ that revolves around:
 """
 
 import re
-import requests
 import typing as t
-from fzmovies_api import errors, logger
-import fzmovies_api.utils as utils
+
+import requests
+
+from fzmovies_api import errors, logger, utils
 
 session = requests.Session()
 
@@ -37,8 +38,8 @@ class Index:
 
     url = utils.site_url
     search_url = utils.get_absolute_url("/csearch.php")
-    searchby_options = ["Name", "Director", "Starcast"]
-    category_options = ["All", "Bollywood", "Hollywood", "DHollywood"]
+    searchby_options = ("Name", "Director", "Starcast")
+    category_options = ("All", "Bollywood", "Hollywood", "DHollywood")
     session_is_initialized = False
 
     def __init__(
@@ -72,25 +73,25 @@ class Index:
             searchby (t.Literal["Name", "Director", "Starcast"], optional): Search category. Defaults to "Name".
             category (t.Literal["All", "Bollywood", "Hollywood", "DHollywood"], optional): Movie category. Defaults to "All".
         """
-        assert (
-            type(query) is str
-        ), f"Query must be of {str} datatype only not {type(query)}"
+        assert type(query) is str, (
+            f"Query must be of {str} datatype only not {type(query)}"
+        )
         if not query:
             raise ValueError("Query cannot be empty")
-        assert (
-            searchby in self.searchby_options
-        ), f"Searchby '{searchby}' is NOT one of '{self.searchby_options}'"
-        assert (
-            category in self.category_options
-        ), f"Category '{category}' is NOT one of '{self.category_options}'"
-
-        payload = dict(
-            searchname=query,
-            Search="Search",
-            searchby=searchby,
-            category=category,
-            vsearch="",
+        assert searchby in self.searchby_options, (
+            f"Searchby '{searchby}' is NOT one of '{self.searchby_options}'"
         )
+        assert category in self.category_options, (
+            f"Category '{category}' is NOT one of '{self.category_options}'"
+        )
+
+        payload = {
+            "searchname": query,
+            "Search": "Search",
+            "searchby": searchby,
+            "category": category,
+            "vsearch": "",
+        }
         resp = session.post(self.search_url, data=payload, timeout=request_timeout)
         resp.raise_for_status()
         return resp.text
@@ -106,7 +107,7 @@ class Metadata:
 
     session_expired_pattern = r".*Your download keys have expired.*"
 
-    question_and_answers_url_map = {
+    question_and_answers_url_map = {  # noqa: RUF012
         "formats": utils.get_absolute_url("/mquality.php"),
         "faq": utils.get_absolute_url("/support.php"),
     }
@@ -122,7 +123,7 @@ class Metadata:
         if not session.cookies.get("PHPSESSID"):
             logger.debug("Initializing session")
             Index()
-        resp = session.get(url, timeout=timeout, *args, **kwargs)
+        resp = session.get(url, *args, timeout=timeout, **kwargs)
         resp.raise_for_status()
         if "text/html" in resp.headers.get("Content-Type", ""):
             has_expired = re.search(cls.session_expired_pattern, resp.text)
@@ -160,9 +161,9 @@ class Metadata:
             str: Html contents of the to-download page.
         """
         movie_file_url = str(movie_file_url)
-        assert (
-            "/download1.php?downloadoptionskey=" in movie_file_url
-        ), f"Invalid movie-file url - '{movie_file_url}'"
+        assert "/download1.php?downloadoptionskey=" in movie_file_url, (
+            f"Invalid movie-file url - '{movie_file_url}'"
+        )
         return cls.get_resource(movie_file_url).text
 
     @classmethod
@@ -176,9 +177,9 @@ class Metadata:
             str: Html content of the page.
         """
         download_url = str(download_url)
-        assert (
-            "/download.php?downloadkey=" in download_url
-        ), f"Invalid to-download-links url - '{download_url}'"
+        assert "/download.php?downloadkey=" in download_url, (
+            f"Invalid to-download-links url - '{download_url}'"
+        )
         return cls.get_resource(download_url).text
 
     @classmethod
@@ -191,9 +192,9 @@ class Metadata:
         Returns:
             str: Url pointing to the movie file ready to be downloaded.
         """
-        assert (
-            "/dlink.php?id=" in last_download_url
-        ), f"Invalid last-download url - '{last_download_url}'"
+        assert "/dlink.php?id=" in last_download_url, (
+            f"Invalid last-download url - '{last_download_url}'"
+        )
         return cls.get_resource(last_download_url).text
 
     @classmethod
